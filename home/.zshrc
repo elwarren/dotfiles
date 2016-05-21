@@ -68,7 +68,11 @@ DISABLE_CORRECTION="true"
 source ~/.bash_private
 
 source ~/bin/finto-helpers.sh
-# source ~/.bash_completion.d/bamgo
+
+# use bash completions in zsh
+autoload bashcompinit
+bashcompinit
+source ~/.bash_completion.d/bamgo
 
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v

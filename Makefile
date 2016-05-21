@@ -1,11 +1,12 @@
-all: install
+all: installbrew install
 
 help:
-	# make all
-	# make install
-	# make installbrew
-	# make installzsh
-	# make diff
+	# make all         : install dotfiles and packages
+	# make install     : copy dotfiles to homedir
+	# make installbrew : install packages with brew
+	# make installzsh  : hack to fix pure prompt for zsh
+	# make diff        : diff dotfiles against installed
+	# make updaterepo  : append brew list to this file
 	true
 
 diff:
@@ -13,12 +14,12 @@ diff:
 	diff home/.bashrc ~/.bashrc || true
 	diff home/.vimrc  ~/.vimrc  || true
 
-update:
-	diff ~/.zshrc  home/.zshrc  || true
-	diff ~/.bashrc home/.bashrc || true
-	diff ~/.vimrc  home/.vimrc  || true
+updaterepo:
+	cp ~/.zshrc  home/.zshrc
+	cp ~/.bashrc home/.bashrc
+	cp ~/.vimrc  home/.vimrc  
 
-install: installbrew 
+install:
 	cp home/.zshrc ~/.zshrc
 	cp home/.bashrc ~/.bashrc
 	cp home/.vimrc ~/.vimrc
@@ -117,6 +118,7 @@ installbrew:
 	brew list --versions reattach-to-user-namespace || brew install reattach-to-user-namespace || brew upgrade reattach-to-user-namespace
 	brew list --versions redis || brew install redis || brew upgrade redis
 	brew list --versions sfcgal || brew install sfcgal || brew upgrade sfcgal
+	brew list --versions spark | brew install spark || brew upgrade spark
 	brew list --versions sqlite || brew install sqlite || brew upgrade sqlite
 	brew list --versions tmux || brew install tmux || brew upgrade tmux
 	brew list --versions watch || brew install watch || brew upgrade watch
