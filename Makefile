@@ -25,13 +25,60 @@ install:
 	cp home/.vimrc ~/.vimrc
 	touch ~/.zhistory
 
+clean:
+	rm -rf ./rvm-installer*
+
 installzsh:
 	# HACK to fix pure theme, must be done after antigen bundle is installed https://github.com/sindresorhus/pure
 	mkdir ~/.zfunctions
 	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/async.zsh ~/.zfunctions/async
 	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/pure.zsh ~/.zfunctions/prompt_pure_setup
 
-installbrew:
+installgpg: ~/.gnupg
+	# setup gpg or skip and install existing files?
+	brew install gnupg
+	gpg --gen-key
+
+installssh: installgpg ~/.ssh
+	# TODO cp ssh keys from some secure location, possibly stored gpg encrypted
+	# ssh-keygen -t rsa
+	true
+
+installrvm:
+	# needs gpg so run after brew completes
+	# http://rvm.io/rvm/security
+	# Install mpapis public key (might need `gpg2` and or `sudo`)
+	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+	#
+	# # Download the installer
+	\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer
+	\curl -O https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer.asc
+	#
+	# # Verify the installer signature (might need `gpg2`), and if it validates...
+	gpg --verify rvm-installer.asc
+	#
+	# # Run the installer
+	bash rvm-installer stable
+
+installruby: installrvm
+	# use latest ruby-2.3.0
+	rvm install ruby
+	rvm use ruby
+	rvm rubygems latest
+
+installxcode:
+	# TODO how to do this?
+	# curl xcode maybe
+	# after install this acccepts license
+	xcode-select --install
+
+installhomebrew:
+	# mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install > /tmp/mybrew
+	/usr/bin/ruby /tmp/mybrew
+
+installbrewpkgs:
+	# ❯ brew list | awk '{print "\tbrew install "$1}' >> Makefile
 	# ❯ brew list | awk '{print "\tbrew list --versions "$1" || brew install "$1" || brew upgrade "$1}' >> Makefile
 	brew list --versions antigen || brew install antigen || brew upgrade antigen
 	brew list --versions apache-drill || brew install apache-drill || brew upgrade apache-drill
