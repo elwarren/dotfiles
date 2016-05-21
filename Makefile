@@ -32,11 +32,11 @@ clean:
 	rm -rf ./rvm-installer*
 	rm -f /tmp/mybrew
 
-dirs: ~/bin ~/Projects ~/work ~/virtualenvs
-	mkdir ~/bin
-	mkdir ~/Projects
-	mkdir ~/work
-	mkdir ~/virtualenvs
+dirs:
+	mkdir ~/bin         || true
+	mkdir ~/Projects    || true
+	mkdir ~/work        || true
+	mkdir ~/virtualenvs || true
 	
 installzsh:
 	# HACK to fix pure theme, must be done after antigen bundle is installed https://github.com/sindresorhus/pure
