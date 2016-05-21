@@ -1,0 +1,6 @@
+     brew cask install Caskroom/cask/hipchat
+     brew cask install Caskroom/cask/iterm2
+     brew cask install Caskroom/cask/slack
+     brew cask install Caskroom/cask/sublime-text
+     brew cask install Caskroom/cask/vlc
+     brew cask install Caskroom/cask/xquartz

@@ -2,6 +2,9 @@
 # still learning zsh
 #
 #set -x
+#
+export WORK_HOME=$HOME/work
+export PROJECTS_HOME=$HOME/Projects
 export VISUAL=vim
 export EDITOR=vim
 export TZ="America/New_York"
@@ -11,8 +14,16 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH=$PATH:~/bin
 # add go to path
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+# setup ruby environment with rvm
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# setup python environment with virtualenv
+export PIP_PREFIX="/usr/local/bin/pip"
+export VIRTUALENVS_HOME=$HOME/virtualenvs
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
 
 # history
 HISTFILE=~/.zhistory
