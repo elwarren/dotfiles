@@ -1,10 +1,18 @@
 # my .zshrc
 # still learning zsh
 #
-
+#set -x
 export VISUAL=vim
 export EDITOR=vim
 export TZ="America/New_York"
+# gnu coreutils for ls
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# my bin
+export PATH=$PATH:~/bin
+# add go to path
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+# Add RVM to PATH for scripting
+export PATH="$PATH:$HOME/.rvm/bin"
 
 # history
 HISTFILE=~/.zhistory
@@ -13,15 +21,16 @@ setopt incappendhistory
 setopt sharehistory
 setopt extendedhistory
 
-# vi mode
-bindkey -v
+# HACK to fix pure prompt install
+fpath=( "$HOME/.zfunctions" $fpath )
 
 # antigen from brew
 source /usr/local/share/antigen.zsh
 # load oh-my-zsh library
-# antigen use oh-my-zsh
+antigen use oh-my-zsh
 # theme
 # author suggests NOT using antigen theme pure
+antigen bundle joel-porquet/zsh-dircolors-solarized.git
 antigen bundle sindresorhus/pure
 # git
 antigen bundle git
@@ -47,7 +56,7 @@ fi
 # fish style
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
-# do it!
+## do it!
 antigen apply
 
 # Disable autocorrect guesses. Happens when typing a wrong
@@ -61,9 +70,6 @@ source ~/.bash_private
 source ~/bin/finto-helpers.sh
 # source ~/.bash_completion.d/bamgo
 
-# my bin
-export PATH=$PATH:~/bin
-# add go to path
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-# Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
+# vi mode has to be set after antigen oh-my-zsh else it gets lost
+bindkey -v
+

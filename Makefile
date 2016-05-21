@@ -1,8 +1,14 @@
-install: installbrew installzsh
+install: installbrew 
 	cp home/.zshrc ~/.zshrc
 	cp home/.bashrc ~/.bashrc
 	cp home/.vimrc ~/.vimrc
 	touch ~/.zhistory
+
+installzsh:
+	# HACK to fix pure theme, must be done after antigen bundle is installed
+	mkdir ~/.zfunctions
+	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/async.zsh ~/.zfunctions/async
+	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/pure.zsh ~/.zfunctions/pure
 
 installbrew:
 	# ❯ brew list | awk '{print "brew install "$1}'
@@ -62,16 +68,4 @@ installbrew:
 	brew install tmux
 	brew install wget
 	brew install zeromq
-
-installzsh:
-	antigen bundle git
-	antigen bundle git-extras
-	antigen bundle pip
-	antigen bundle npm
-	antigen bundle rvm
-	antigen bundle osx
-	antigen bundle sindresorhus/pure
-	antigen bundle brew
-	antigen bundle zsh-users/zsh-syntax-highlighting
-	antigen bundle zsh-users/zsh-autosuggestions
 
