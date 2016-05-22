@@ -87,8 +87,10 @@ installrvm:
 installruby: installrvm
 	# use latest ruby-2.3.0
 	rvm install ruby
-	rvm use ruby
+	rvm use ruby-2.3.0
+	rvm default ruby-2.3.0
 	rvm rubygems latest
+	gem install bundle
 
 installpython: dirs
 	# python using ~/virtualenvs

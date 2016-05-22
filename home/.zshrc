@@ -5,6 +5,7 @@
 #
 export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
+export LANG=en_US.UTF-8
 export VISUAL=vim
 export EDITOR=vim
 export TZ="America/New_York"
