@@ -2,18 +2,29 @@
 	brew install apache-drill
 	brew install autoconf
 	brew install automake
+	brew install aws-cfn-tools
+	brew install aws-elasticache
+	brew install aws-shell
 	brew install awscli
 	brew install bash-completion
 	brew install bats
+	brew install bfgminer
 	brew install boost
 	brew install c-ares
 	brew install cgal
+	brew install chrome-cli
+	brew install cloog018
+	brew install cloud-watch
 	brew install coreutils
 	brew install cscope
 	brew install curl
 	brew install daemonize
+	brew install ec2-api-tools
+	brew install erlang
+	brew install freetds
 	brew install freetype
 	brew install freexl
+	brew install gcc49
 	brew install gdal
 	brew install gdbm
 	brew install geos
@@ -23,14 +34,19 @@
 	brew install git-extras
 	brew install glib
 	brew install gmp
+	brew install gmp4
 	brew install gnupg
 	brew install go
 	brew install graphicsmagick
 	brew install graphviz
+	brew install hadoop
+	brew install hbase
 	brew install hidapi
 	brew install highlight
+	brew install hive
 	brew install htop
 	brew install irssi
+	brew install isl011
 	brew install jansson
 	brew install jpeg
 	brew install jq
@@ -43,6 +59,7 @@
 	brew install libksba
 	brew install liblwgeom
 	brew install libmicrohttpd
+	brew install libmpc08
 	brew install libpng
 	brew install libspatialite
 	brew install libtiff
@@ -54,13 +71,16 @@
 	brew install logstash
 	brew install lua
 	brew install lzlib
+	brew install lzo
 	brew install macvim
 	brew install mosquitto
 	brew install mpfr
+	brew install mpfr2
 	brew install nmap
 	brew install node
 	brew install oniguruma
 	brew install openssl
+	brew install osm2pgsql
 	brew install p7zip
 	brew install parallel
 	brew install pcre
@@ -68,6 +88,8 @@
 	brew install postgis
 	brew install postgresql
 	brew install proj
+	brew install protobuf
+	brew install protobuf-c
 	brew install python
 	brew install python3
 	brew install readline
@@ -75,9 +97,16 @@
 	brew install redis
 	brew install sfcgal
 	brew install spark
+	brew install sqlcipher
 	brew install sqlite
+	brew install sqoop
+	brew install sqsh
 	brew install tmux
+	brew install tree
 	brew install watch
 	brew install wget
+	brew install wxmac
 	brew install xz
+	brew install yaws
 	brew install zeromq
+	brew install zookeeper
