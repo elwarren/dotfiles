@@ -1,14 +1,21 @@
-all: installbrew install
+all: help
 
 help:
-	# make all         : install dotfiles and packages
-	# make install     : copy dotfiles to homedir
-	# make installbrew : install packages with brew
-	# make installzsh  : hack to fix pure prompt for zsh
-	# make installgpg  : generate gnupg gpg keys if not exist
-	# make installssh  : generate ssh keys if not exist
-	# make diff        : diff dotfiles against installed
-	# make updaterepo  : append brew list to this file
+	# make                 : show this help
+	# make dirs            : create directories
+	# make installdots     : copy dotfiles to homedir
+	# make installzsh      : hack to fix pure prompt for zsh
+	# make installhomebrew : bootstrap homebrew
+	# make installbrews    : install packages with brew
+	# make installcasks    : install native osx apps with brew cask
+	# make installrvm      : bootstrap rvm
+	# make installruby     : install rubies with rvm
+	# make installpython   : install python and virtualenv
+	# make installgpg      : generate gnupg gpg keys if not exist
+	# make installssh      : generate ssh keys if not exist
+	# make diff            : diff dotfiles against installed
+	# make updaterepo      : append brew list to this file
+	# make clean           : cleanup
 	true
 
 diff:
@@ -20,11 +27,15 @@ updaterepo:
 	cp ~/.zshrc  home/.zshrc
 	cp ~/.bashrc home/.bashrc
 	cp ~/.vimrc  home/.vimrc  
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      home/
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings home/
 
-install:
+installdots:
 	cp ~/.zshrc  ~/.zshrc.make.backup  && cp home/.zshrc ~/.zshrc
 	cp ~/.bashrc ~/.bashrc.make.backup && cp home/.bashrc ~/.bashrc
 	cp ~/.vimrc  ~/.vimrc.make.backup  && cp home/.vimrc ~/.vimrc
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
 	touch ~/.zhistory
 
 clean:

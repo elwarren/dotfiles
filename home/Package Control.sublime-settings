@@ -1,0 +1,19 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"JsFormat",
+		"JSHint Gutter",
+		"Logstash Syntax Highlighting",
+		"Node Completions",
+		"Nodejs",
+		"Package Control",
+		"Pretty JSON",
+		"PythonTidy",
+		"SublimeManpage",
+		"TidyHTML5"
+	]
+}
