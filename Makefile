@@ -34,6 +34,7 @@ installdots:
 	cp ~/.zshrc  ~/.zshrc.make.backup  && cp home/.zshrc ~/.zshrc
 	cp ~/.bashrc ~/.bashrc.make.backup && cp home/.bashrc ~/.bashrc
 	cp ~/.vimrc  ~/.vimrc.make.backup  && cp home/.vimrc ~/.vimrc
+	# TODO  ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/*settings
 	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
 	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
 	touch ~/.zhistory
@@ -136,3 +137,9 @@ generatebrewupgrade:
 
 installbrews:
 	bin/homebrew.install.brews
+
+generatedockerlist:
+	docker images | awk '!/^REPOSITORY/ {print "docker pull "$1}' > bin/docker.pull.images
+
+installdockers:
+	bin/docker.pull.images
