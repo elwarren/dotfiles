@@ -15,11 +15,13 @@
 	brew install chrome-cli
 	brew install cloog018
 	brew install cloud-watch
+	brew install cmake
 	brew install coreutils
 	brew install cscope
 	brew install curl
 	brew install daemonize
 	brew install ec2-api-tools
+	brew install elasticsearch
 	brew install erlang
 	brew install freetds
 	brew install freetype
@@ -52,6 +54,8 @@
 	brew install jq
 	brew install json-c
 	brew install jsonpp
+	brew install libcouchbase
+	brew install libev
 	brew install libevent
 	brew install libffi
 	brew install libgeotiff
@@ -65,6 +69,7 @@
 	brew install libtiff
 	brew install libtool
 	brew install libusb
+	brew install libuv
 	brew install libwebsockets
 	brew install libxml2
 	brew install libyaml
@@ -80,10 +85,12 @@
 	brew install node
 	brew install oniguruma
 	brew install openssl
+	brew install openvpn
 	brew install osm2pgsql
 	brew install p7zip
 	brew install parallel
 	brew install pcre
+	brew install peervpn
 	brew install pkg-config
 	brew install postgis
 	brew install postgresql
@@ -95,14 +102,17 @@
 	brew install readline
 	brew install reattach-to-user-namespace
 	brew install redis
+	brew install riak
 	brew install sfcgal
 	brew install spark
 	brew install sqlcipher
 	brew install sqlite
 	brew install sqoop
 	brew install sqsh
+	brew install ssh-copy-id
 	brew install tmux
 	brew install tree
+	brew install unrar
 	brew install watch
 	brew install wget
 	brew install wxmac

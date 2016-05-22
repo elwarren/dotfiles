@@ -12,8 +12,10 @@ export TZ="America/New_York"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # my bin
 export PATH=$PATH:~/bin
-# add go to path
+
+# setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=~/work/gocode
 
 # setup ruby environment with rvm
 # Add RVM to PATH for scripting

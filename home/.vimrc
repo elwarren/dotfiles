@@ -94,7 +94,14 @@ try
 catch
 endtry
 
+" brighten darken appropriately
 set background=dark
+" highlight current row
+set cursorline
+hi CursorLine term=bold
+"hi CursorLine cterm=bold ctermbg=darkgrey
+" hi CursorLine cterm=NONE ctermbg=darkred ctermfg=white
+" hi CursorLine term=bold cterm=bold guibg=Grey40
 
 " Set extra options when running in GUI mode
 if has("gui_running")
