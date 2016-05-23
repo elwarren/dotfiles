@@ -73,6 +73,9 @@ antigen bundle zsh-users/zsh-autosuggestions
 ## do it!
 antigen apply
 
+# use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
+unset LSCOLORS
+
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
