@@ -18,9 +18,14 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=~/work/gocode
 
+# setup java
+export JAVA_HOME=$( /usr/libexec/java_home )
+
 # setup ruby environment with rvm
 # Add RVM to PATH for scripting
 export PATH="$PATH:$HOME/.rvm/bin"
+# Load RVM into a shell session *as a function*
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 # setup python environment with virtualenv
 export PIP_PREFIX="/usr/local/bin/pip"
