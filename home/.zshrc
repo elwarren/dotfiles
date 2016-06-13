@@ -39,6 +39,7 @@ HISTSIZE=SAVEHIST=5000
 setopt incappendhistory
 setopt sharehistory
 setopt extendedhistory
+setopt hashlistall
 
 # HACK to fix pure prompt install
 fpath=( "$HOME/.zfunctions" $fpath )
