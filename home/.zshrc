@@ -12,7 +12,7 @@ export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # my bin
-export PATH=$PATH:~/bin
+export PATH="~/bin:$PATH"
 
 # setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
@@ -21,11 +21,8 @@ export GOPATH=~/work/gocode
 # setup java
 export JAVA_HOME=$( /usr/libexec/java_home )
 
-# setup ruby environment with rvm
-# Add RVM to PATH for scripting
-export PATH="$PATH:$HOME/.rvm/bin"
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+# setup ruby environment with rbenv
+eval "$(rbenv init -)"
 
 # setup python environment with virtualenv
 export PIP_PREFIX="/usr/local/bin/pip"
@@ -64,7 +61,7 @@ antigen bundle virtualenv
 antigen bundle node
 antigen bundle npm
 # ruby
-antigen bundle rvm
+#antigen bundle rvm
 antigen bundle gem
 # osx
 if [[ $CURRENT_OS == 'OS X' ]]; then
@@ -90,7 +87,7 @@ DISABLE_CORRECTION="true"
 # private environment stuff that should not be synced to github
 source ~/.bash_private
 
-source ~/bin/finto-helpers.sh
+source /usr/local/bin/finto-helpers.sh
 
 # use bash completions in zsh
 autoload bashcompinit
