@@ -12,11 +12,11 @@ export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # my bin
-export PATH="~/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 # setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=~/work/gocode
+export GOPATH=$HOME/work/gocode
 
 # setup java
 export JAVA_HOME=$( /usr/libexec/java_home )
@@ -31,7 +31,7 @@ export VIRTUALENVS_HOME=$HOME/virtualenvs
 export PIP_REQUIRE_VIRTUALENV=true
 
 # history
-HISTFILE=~/.zhistory
+HISTFILE=$HOME/.zhistory
 HISTSIZE=SAVEHIST=5000
 setopt incappendhistory
 setopt sharehistory
@@ -85,14 +85,14 @@ unsetopt CORRECT
 DISABLE_CORRECTION="true"
 
 # private environment stuff that should not be synced to github
-source ~/.bash_private
+source $HOME/.bash_private
 
 source /usr/local/bin/finto-helpers.sh
 
 # use bash completions in zsh
 autoload bashcompinit
 bashcompinit
-source ~/.bash_completion.d/bamgo
+source $HOME/.bash_completion.d/bamgo
 
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
