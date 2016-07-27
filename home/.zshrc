@@ -13,6 +13,24 @@ export TZ="America/New_York"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # my bin
 export PATH="$HOME/bin:$PATH"
+# brew doctor recommends
+export PATH="$PATH:/usr/local/sbin"
+
+# setup oracle instant client 12
+export ORACLE_HOME="$HOME/db/instantclient_12_1"
+export OCI_DIR="$ORACLE_HOME"
+export TNS_NAMES="$ORACLE_HOME"
+export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$ORACLE_HOME"
+export PATH="$PATH:$ORACLE_HOME"
+export NLS_LANG="AMERICAN_AMERICA.UTF8"
+# TODO is this still needed?
+# ln -s "$ORACLE_HOME"/libclntsh.dylib.* "$ORACLE_HOME"/libclntsh.dylib
+# ln -s "$ORACLE_HOME"/libocci.dylib.* "$ORACLE_HOME"/libocci.dylib
+
+# setup oracle sqlcl
+export LD_LIBRARY_PATH=$HOME/db/sqlcl/lib
+export PATH=$PATH:$HOME/db/sqlcl/bin
 
 # setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
@@ -25,7 +43,7 @@ export JAVA_HOME=$( /usr/libexec/java_home )
 eval "$(rbenv init -)"
 
 # setup python environment with virtualenv
-export PIP_PREFIX="/usr/local/bin/pip"
+#export PIP_PREFIX="/usr/local/bin/pip"
 export VIRTUALENVS_HOME=$HOME/virtualenvs
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
