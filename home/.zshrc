@@ -42,8 +42,10 @@ export JAVA_HOME=$( /usr/libexec/java_home )
 # setup ruby environment with rbenv
 eval "$(rbenv init -)"
 
-# setup python environment with virtualenv
-#export PIP_PREFIX="/usr/local/bin/pip"
+# setup python environment with pyenv and virtualenv
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export PIP_PREFIX="/usr/local"
 export VIRTUALENVS_HOME=$HOME/virtualenvs
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
@@ -60,7 +62,8 @@ setopt hashlistall
 fpath=( "$HOME/.zfunctions" $fpath )
 
 # antigen from brew
-source /usr/local/share/antigen.zsh
+# source /usr/local/share/antigen.zsh
+source /usr/local/share/antigen/antigen.zsh
 # load oh-my-zsh library
 antigen use oh-my-zsh
 # theme
