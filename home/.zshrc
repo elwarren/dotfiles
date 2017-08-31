@@ -20,9 +20,11 @@ export PATH="$PATH:/usr/local/sbin"
 export ORACLE_HOME="$HOME/db/instantclient_12_1"
 export OCI_DIR="$ORACLE_HOME"
 export TNS_NAMES="$ORACLE_HOME"
+export TNS_ADMIN="$ORACLE_HOME"
 export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$ORACLE_HOME"
 export PATH="$PATH:$ORACLE_HOME"
+#export NLS_LANG="AMERICAN_AMERICA.US7ASCII"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
 # TODO is this still needed?
 # ln -s "$ORACLE_HOME"/libclntsh.dylib.* "$ORACLE_HOME"/libclntsh.dylib
@@ -46,7 +48,7 @@ eval "$(rbenv init -)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export PIP_PREFIX="/usr/local"
-export VIRTUALENVS_HOME=$HOME/virtualenvs
+export VIRTUALENVS_HOME=$HOME/.virtualenvs
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
 
@@ -66,6 +68,8 @@ fpath=( "$HOME/.zfunctions" $fpath )
 source /usr/local/share/antigen/antigen.zsh
 # load oh-my-zsh library
 antigen use oh-my-zsh
+# touchbar
+antigen theme https://github.com/iam4x/zsh-iterm-touchbar
 # theme
 # author suggests NOT using antigen theme pure
 antigen bundle joel-porquet/zsh-dircolors-solarized.git
@@ -73,7 +77,6 @@ antigen bundle sindresorhus/pure
 # git
 antigen bundle git
 antigen bundle git-extras
-antigen bundle tmuxinator
 # python
 antigen bundle python
 antigen bundle pip
@@ -84,6 +87,9 @@ antigen bundle npm
 # ruby
 #antigen bundle rvm
 antigen bundle gem
+# misc
+antigen bundle aws
+antigen bundle tmuxinator
 # osx
 if [[ $CURRENT_OS == 'OS X' ]]; then
     antigen bundle brew
@@ -99,6 +105,8 @@ antigen apply
 
 # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
 unset LSCOLORS
+# ls colors seems broken after macos
+alias ls='gls --color=auto'
 
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT

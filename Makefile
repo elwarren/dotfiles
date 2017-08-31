@@ -53,8 +53,8 @@ dirs:
 installzsh:
 	# HACK to fix pure theme, must be done after antigen bundle is installed https://github.com/sindresorhus/pure
 	mkdir ~/.zfunctions
-	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/async.zsh ~/.zfunctions/async
-	ln -sf ~/.antigen/repos/https-COLON--SLASH--SLASH-github.com-SLASH-sindresorhus-SLASH-pure.git/pure.zsh ~/.zfunctions/prompt_pure_setup
+	ln -sf ~/.antigen/bundles/sindresorhus/pure/async.zsh ~/.zfunctions/async
+	ln -sf ~/.antigen/bundles/sindresorhus/pure/pure.zsh ~/.zfunctions/prompt_pure_setup
 
 installgpg: ~/.gnupg
 	# setup gpg or skip and install existing files?
