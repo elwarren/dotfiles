@@ -108,6 +108,9 @@ unset LSCOLORS
 # ls colors seems broken after macos
 alias ls='gls --color=auto'
 
+# add more color with grc generic colourizer
+source /usr/local/etc/grc.bashrc
+
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
@@ -126,3 +129,5 @@ source $HOME/.bash_completion.d/bamgo
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
 
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
