@@ -325,3 +325,12 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
+"autocmd VimEnter * silent !echo -ne "\033]1337;PushKeyLabels\a"
+
+autocmd VimEnter * silent !echo -ne "\033]1337;SetKeyLabel=F1=Save & Quit\a"
+autocmd VimEnter * map <F1> :wq<CR>
+autocmd VimEnter * silent !echo -ne "\033]1337;SetKeyLabel=F2=Quit\a"
+autocmd VimEnter * map <F2> :q!<CR>
+
+"autocmd VimLeave * silent !echo -ne "\033]1337;PopKeyLabels\a"
+
