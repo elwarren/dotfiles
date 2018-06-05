@@ -31,9 +31,9 @@ updaterepo:
 	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings home/
 
 installdots:
-	cp ~/.zshrc  ~/.zshrc.make.backup  && cp home/.zshrc ~/.zshrc
-	cp ~/.bashrc ~/.bashrc.make.backup && cp home/.bashrc ~/.bashrc
-	cp ~/.vimrc  ~/.vimrc.make.backup  && cp home/.vimrc ~/.vimrc
+	cp ~/.zshrc  ~/.zshrc.make.backup  || true && cp home/.zshrc ~/.zshrc
+	cp ~/.bashrc ~/.bashrc.make.backup || true && cp home/.bashrc ~/.bashrc
+	cp ~/.vimrc  ~/.vimrc.make.backup  || true && cp home/.vimrc ~/.vimrc
 	# TODO  ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/*settings
 	# cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
 	# cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
