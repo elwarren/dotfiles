@@ -40,18 +40,25 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/work/gocode
 
 # setup java
-export JAVA_HOME=$( /usr/libexec/java_home )
+# Set java 8 as default
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+alias j8="export JAVA_HOME=$(/usr/libexec/java_home -v 1.8); java -version"
+# alias j10="export JAVA_HOME=$(/usr/libexec/java_home -v 10); java -version"
+# alias j11="export JAVA_HOME=$(/usr/libexec/java_home -v 11); java -version"
+alias j12="export JAVA_HOME=$(/usr/libexec/java_home -v 12); java -version"
 
 # setup ruby environment with rbenv
 eval "$(rbenv init -)"
 
 # setup python environment with pyenv and virtualenv
-export PIP_PREFIX="/usr/local"
-export VIRTUALENVS_HOME=$HOME/.virtualenvs
+export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+
+#export PIP_PREFIX="/usr/local"
+#export VIRTUALENVS_HOME=$HOME/.virtualenvs
 # pip should only run if there is a virtualenv currently activated
 #export PIP_REQUIRE_VIRTUALENV=true
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 
 # setup perl
 # PATH="/Users/wlindsey/perl5/bin${PATH:+:${PATH}}"; export PATH;
@@ -117,7 +124,7 @@ unset LSCOLORS
 alias ls='gls --color=auto'
 
 # add more color with grc generic colourizer
-source /usr/local/etc/grc.bashrc
+source /usr/local/etc/grc.zsh
 
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
@@ -125,7 +132,7 @@ unsetopt CORRECT
 DISABLE_CORRECTION="true"
 
 # customize touchbar
-source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
+# source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
 
 # private environment stuff that should not be synced to github
 source $HOME/.bash_private
