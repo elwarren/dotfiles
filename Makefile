@@ -34,10 +34,16 @@ installdots:
 	cp ~/.zshrc  ~/.zshrc.make.backup  || true && cp home/.zshrc ~/.zshrc
 	cp ~/.bashrc ~/.bashrc.make.backup || true && cp home/.bashrc ~/.bashrc
 	cp ~/.vimrc  ~/.vimrc.make.backup  || true && cp home/.vimrc ~/.vimrc
-	# TODO  ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/*settings
-	# cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
-	# cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
 	touch ~/.zhistory
+
+installsublime2:
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
+
+installsublime3:
+	# TODO  ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/*settings
+	# Fix ability to type left paren "(" after installing jedi
+	cp ~/work/dotfiles/home/sublime_jedi_python_autocompletion_Default.sublime-keymap.json '/Users/wlindsey/Library/Application Support/Sublime Text 3/Packages/Jedi - Python autocompletion/Default.sublime-keymap'
 
 clean:
 	# cleanup temporary stuff
