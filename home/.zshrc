@@ -8,7 +8,8 @@ export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export VISUAL=vim
-export EDITOR=vim
+export EDITOR=/usr/local/bin/nvim
+[[ -f /usr/local/bin/nvim ]] && export EDITOR=/usr/local/bin/nvim
 export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -146,7 +147,8 @@ source $HOME/.bash_completion.d/bamgo
 
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
-
+# macbook pro with touchbar and ipad both have no ESC key, map them to jj
+bindkey -M viins 'jj' vi-cmd-mode
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -155,3 +157,19 @@ PERL5LIB="/Users/wlindsey/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL
 PERL_LOCAL_LIB_ROOT="/Users/wlindsey/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/Users/wlindsey/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/wlindsey/perl5"; export PERL_MM_OPT;
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+#__conda_setup="$('/Users/wlindsey/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#if [ $? -eq 0 ]; then
+#    eval "$__conda_setup"
+#else
+#    if [ -f "/Users/wlindsey/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+#        . "/Users/wlindsey/opt/miniconda3/etc/profile.d/conda.sh"
+#    else
+#        export PATH="/Users/wlindsey/opt/miniconda3/bin:$PATH"
+#    fi
+#fi
+#unset __conda_setup
+# <<< conda initialize <<<
+
