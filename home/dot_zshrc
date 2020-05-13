@@ -7,9 +7,8 @@ export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export VISUAL=vim
-export EDITOR=/usr/local/bin/nvim
-[[ -f /usr/local/bin/nvim ]] && export EDITOR=/usr/local/bin/nvim
+export VISUAL=vi
+export EDITOR=vi
 export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
@@ -17,6 +16,13 @@ export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export PATH="$HOME/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
+
+# use nvim when we can
+if [[ -e /usr/local/bin/nvim ]];then
+  export EDITOR=/usr/local/bin/nvim
+  alias vi=/usr/local/bin/nvim
+  alias vim=/usr/local/bin/nvim
+fi
 
 # setup oracle instant client 12
 export ORACLE_HOME="$HOME/db/instantclient_12_1"
@@ -26,11 +32,7 @@ export TNS_ADMIN="$ORACLE_HOME"
 export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$ORACLE_HOME"
 export PATH="$PATH:$ORACLE_HOME"
-#export NLS_LANG="AMERICAN_AMERICA.US7ASCII"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
-# TODO is this still needed?
-# ln -s "$ORACLE_HOME"/libclntsh.dylib.* "$ORACLE_HOME"/libclntsh.dylib
-# ln -s "$ORACLE_HOME"/libocci.dylib.* "$ORACLE_HOME"/libocci.dylib
 
 # setup oracle sqlcl
 export LD_LIBRARY_PATH=$HOME/db/sqlcl/lib
@@ -43,30 +45,16 @@ export GOPATH=$HOME/work/gocode
 # setup java
 # Set java 8 as default
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-alias j8="export JAVA_HOME=$(/usr/libexec/java_home -v 1.8); java -version"
-# alias j10="export JAVA_HOME=$(/usr/libexec/java_home -v 10); java -version"
-# alias j11="export JAVA_HOME=$(/usr/libexec/java_home -v 11); java -version"
-alias j12="export JAVA_HOME=$(/usr/libexec/java_home -v 12); java -version"
+alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
+alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
+alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
+alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
 
 # setup ruby environment with rbenv
 eval "$(rbenv init -)"
 
 # setup python environment with pyenv and virtualenv
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
-#export PIP_PREFIX="/usr/local"
-#export VIRTUALENVS_HOME=$HOME/.virtualenvs
-# pip should only run if there is a virtualenv currently activated
-#export PIP_REQUIRE_VIRTUALENV=true
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-
-# setup perl
-# PATH="/Users/wlindsey/perl5/bin${PATH:+:${PATH}}"; export PATH;
-# PERL5LIB="/Users/wlindsey/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-# PERL_LOCAL_LIB_ROOT="/Users/wlindsey/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-# PERL_MB_OPT="--install_base \"/Users/wlindsey/perl5\""; export PERL_MB_OPT;
-# PERL_MM_OPT="INSTALL_BASE=/Users/wlindsey/perl5"; export PERL_MM_OPT;
 
 # history
 HISTFILE=$HOME/.zhistory
@@ -119,10 +107,12 @@ antigen bundle zsh-users/zsh-autosuggestions
 ## do it!
 antigen apply
 
+# Color console stuff
 # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
 unset LSCOLORS
 # ls colors seems broken after macos
-alias ls='gls --color=auto'
+alias ls='exa --icons'
+alias ll='exa --icons --long --grid'
 
 # add more color with grc generic colourizer
 source /usr/local/etc/grc.zsh
@@ -152,22 +142,22 @@ bindkey -M viins 'jj' vi-cmd-mode
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-PATH="/Users/wlindsey/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/Users/wlindsey/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/Users/wlindsey/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/Users/wlindsey/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/wlindsey/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/Users/wlindsey/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+#__conda_setup="$('$HOME/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 #if [ $? -eq 0 ]; then
 #    eval "$__conda_setup"
 #else
-#    if [ -f "/Users/wlindsey/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-#        . "/Users/wlindsey/opt/miniconda3/etc/profile.d/conda.sh"
+#    if [ -f "$HOME/opt/miniconda3/etc/profile.d/conda.sh" ]; then
+#        . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
 #    else
-#        export PATH="/Users/wlindsey/opt/miniconda3/bin:$PATH"
+#        export PATH="$HOME/opt/miniconda3/bin:$PATH"
 #    fi
 #fi
 #unset __conda_setup

@@ -1,3 +1,6 @@
+# makefile helper to install dotfiles
+# TODO this should all be replaced by ansible, especially these brew hacks
+
 all: help
 
 help:
@@ -16,34 +19,40 @@ help:
 	# make diff            : diff dotfiles against installed
 	# make updaterepo      : append brew list to this file
 	# make clean           : cleanup
-	true
+	@true
 
 diff:
-	diff home/.zshrc  ~/.zshrc  || true
-	diff home/.bashrc ~/.bashrc || true
-	diff home/.vimrc  ~/.vimrc  || true
+	diff home/dot_zshrc  ~/.zshrc  || true
+	diff home/dot_bashrc ~/.bashrc || true
+	diff home/dot_vimrc  ~/.vimrc  || true
+	diff config/nvim/init.vim ~/.config/nvim/init.vim || true
 
 updaterepo:
-	cp ~/.zshrc  home/.zshrc
-	cp ~/.bashrc home/.bashrc
-	cp ~/.vimrc  home/.vimrc  
-	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      home/
-	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings home/
+	cp ~/.zshrc  home/dot_zshrc
+	cp ~/.bashrc home/dot_bashrc
+	cp ~/.vimrc  home/dot_vimrc  
+	cp ~/.config/nvim/init.vim  config/nvim/init.vim
 
 installdots:
-	cp ~/.zshrc  ~/.zshrc.make.backup  || true && cp home/.zshrc ~/.zshrc
-	cp ~/.bashrc ~/.bashrc.make.backup || true && cp home/.bashrc ~/.bashrc
-	cp ~/.vimrc  ~/.vimrc.make.backup  || true && cp home/.vimrc ~/.vimrc
+	cp ~/.zshrc  ~/.zshrc.make.backup  || true
+	cp home/dot_zshrc ~/.zshrc
 	touch ~/.zhistory
+	cp ~/.bashrc ~/.bashrc.make.backup || true 
+	cp home/dot_bashrc ~/.bashrc
+	cp ~/.vimrc  ~/.vimrc.make.backup  || true 
+	cp home/dot_vimrc ~/.vimrc
+	mkdir -p ~/.config/nvim
+	cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.make.backup || true
+	cp config/nvim/init.vim ~/.config/nvim/init.vim 
 
 installsublime2:
-	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/Preferences.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
-	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/Package\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/dot_references.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      
+	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings  ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings.make.backup && cp home/dot_ackage\ Control.sublime-settings ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Package\ Control.sublime-settings
 
 installsublime3:
 	# TODO  ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/User/*settings
 	# Fix ability to type left paren "(" after installing jedi
-	cp ~/work/dotfiles/home/sublime_jedi_python_autocompletion_Default.sublime-keymap.json '/Users/wlindsey/Library/Application Support/Sublime Text 3/Packages/Jedi - Python autocompletion/Default.sublime-keymap'
+	cp ~/work/dotfiles/home/dot_ublime_jedi_python_autocompletion_Default.sublime-keymap.json '/Users/wlindsey/Library/Application Support/Sublime Text 3/Packages/Jedi - Python autocompletion/Default.sublime-keymap'
 
 clean:
 	# cleanup temporary stuff
@@ -51,6 +60,7 @@ clean:
 	rm -f /tmp/mybrew
 
 dirs:
+	mkdir ~/.config     || true
 	mkdir ~/bin         || true
 	mkdir ~/Projects    || true
 	mkdir ~/work        || true
@@ -70,7 +80,7 @@ installgpg: ~/.gnupg
 installssh: installgpg ~/.ssh
 	# TODO cp ssh keys from some secure location, possibly stored gpg encrypted
 	# cp ~/.ssh/config ~/.ssh/config.make.backup
-	# cp home/.ssh/config ~/.ssh/config
+	# cp home/dot_ssh/config ~/.ssh/config
 	# cp ~/.ssh/id_rsa ~/.ssh/id_rsa.make.backup
 	# cp ~/.ssh/id_rsa.pub ~/.ssh/id_rsa.pub.make.backup
 	ssh-keygen -t rsa -f ~/.ssh/id_rsa
