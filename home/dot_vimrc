@@ -1,8 +1,5 @@
 " always evolving .vimrc 
-" version 20160506
-"
-" borrowed some bits from https://github.com/amix/vimrc
-"
+
 
 " Sets how many lines of history VIM has to remember
 set history=500
@@ -13,6 +10,10 @@ filetype indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
+
+" macbook pro touchbar and ipad both lost ESC key so remap to jj
+inoremap jj <Esc>
+inoremap kk <Tab>
 
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file

@@ -3,6 +3,7 @@
 #
 #set -x
 #
+########################################################################
 export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
@@ -17,6 +18,7 @@ export PATH="$HOME/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
 
+########################################################################
 # use nvim when we can
 if [[ -e /usr/local/bin/nvim ]];then
   export EDITOR=/usr/local/bin/nvim
@@ -24,8 +26,9 @@ if [[ -e /usr/local/bin/nvim ]];then
   alias vim=/usr/local/bin/nvim
 fi
 
+########################################################################
 # setup oracle instant client 12
-export ORACLE_HOME="$HOME/db/instantclient_12_1"
+export ORACLE_HOME="$HOME/bin/instantclient_12_1"
 export OCI_DIR="$ORACLE_HOME"
 export TNS_NAMES="$ORACLE_HOME"
 export TNS_ADMIN="$ORACLE_HOME"
@@ -34,14 +37,17 @@ export LD_LIBRARY_PATH="$ORACLE_HOME"
 export PATH="$PATH:$ORACLE_HOME"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
 
+########################################################################
 # setup oracle sqlcl
-export LD_LIBRARY_PATH=$HOME/db/sqlcl/lib
-export PATH=$HOME/db/sqlcl/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/bin/sqlcl/lib
+export PATH=$HOME/bin/sqlcl/bin:$PATH
 
+########################################################################
 # setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/work/gocode
 
+########################################################################
 # setup java
 # Set java 8 as default
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
@@ -50,15 +56,21 @@ alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
 alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
 alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
 
+########################################################################
 # setup ruby environment with rbenv
 eval "$(rbenv init -)"
 
+########################################################################
 # setup python environment with pyenv and virtualenv
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
-# history
+########################################################################
+# setup zsh
 HISTFILE=$HOME/.zhistory
 HISTSIZE=SAVEHIST=5000
+# don't save passwords in history
+HISTORY_IGNORE=todo:jrnl:today:next
+setopt HIST_IGNORE_SPACE
 setopt incappendhistory
 setopt sharehistory
 setopt extendedhistory
@@ -107,47 +119,58 @@ antigen bundle zsh-users/zsh-autosuggestions
 ## do it!
 antigen apply
 
-# Color console stuff
+########################################################################
+# setup color terminal
 # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
 unset LSCOLORS
 # ls colors seems broken after macos
-alias ls='exa --icons'
-alias ll='exa --icons --long --grid'
+test -e /usr/local/bin/gls && alias ls='gls --color=auto'
 
 # add more color with grc generic colourizer
-source /usr/local/etc/grc.zsh
+test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
+
+if [[ -e /usr/local/bin/exa ]]; then
+  alias ls='exa --icons'
+  alias ll='exa --icons --long --all --grid'
+  alias lsatr='exa --icons --long --all --sort modified'
+fi
 
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
 DISABLE_CORRECTION="true"
 
+########################################################################
 # customize touchbar
 # source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
 
+########################################################################
 # private environment stuff that should not be synced to github
-source $HOME/.bash_private
+test -e $HOME/.bash_private && source $HOME/.bash_private
 
-source /usr/local/bin/finto-helpers.sh
+test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.sh
 
-# use bash completions in zsh
-autoload bashcompinit
-bashcompinit
-source $HOME/.bash_completion.d/bamgo
-
+########################################################################
+# set keymappings
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
 # macbook pro with touchbar and ipad both have no ESC key, map them to jj
 bindkey -M viins 'jj' vi-cmd-mode
 
+########################################################################
+# setup iterm on macos
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+########################################################################
+# setup perl
 PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
 PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
+########################################################################
+# setup conda python
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 #__conda_setup="$('$HOME/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
