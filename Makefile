@@ -11,6 +11,7 @@ help:
 	# make installhomebrew : bootstrap homebrew
 	# make installbrews    : install packages with brew
 	# make installcasks    : install native osx apps with brew cask
+	# make installvimplug  : install vim-plug for neovim
 	# make installrvm      : bootstrap rvm
 	# make installruby     : install rubies with rvm
 	# make installpython   : install python and virtualenv
@@ -44,6 +45,9 @@ installdots:
 	mkdir -p ~/.config/nvim
 	cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.make.backup || true
 	cp config/nvim/init.vim ~/.config/nvim/init.vim 
+
+installvimplug:
+	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 installsublime2:
 	cp ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings       ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings.make.backup && cp home/dot_references.sublime-settings      ~/Library/Application\ Support/Sublime\ Text\ 2/Packages/User/Preferences.sublime-settings      

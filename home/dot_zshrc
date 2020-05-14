@@ -13,6 +13,8 @@ export EDITOR=vi
 export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# sqlite3 from brew
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # my bin
 export PATH="$HOME/bin:$PATH"
 # brew doctor recommends
