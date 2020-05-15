@@ -1,89 +1,49 @@
 # dotfiles
 
-dotfiles and handy ~/bin stuff for clean osx installs
+dotfiles and handy `~/bin` stuff for clean -osx- installs
 
-## Makefile
+## Overview
+
+Migrating my daily driver from MacOS to Linux means making this more crossplatform.
+
+https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+
+
+- App Data `~/.local/share`
+- App Config `~/.config`
+- App Cache `~/.cache`
+
+
+## Install
 
 Trying to keep it simple starting with a Makefile, then installing brew, vimrc, zsh and bash dotfiles, a prompt, and finally some misc apps.
 
-#### help
+```
+make help
+```
 
-Show list of make targets.
+## Apps
 
-#### diff
+### Sessions
 
-Diff repo dotfiles against installed dotfiles.
+- zsh
+- bash
+- tmux
+- iterm profiles
 
-#### updaterepo
+### Editors & Code
 
-Copy current ~ dotfiles into repo.
+- neovim
+- vim
+- sublimetext
+- vscode
 
-#### install
+### Calendars and Contacts
 
-Copy repo dotfiles into ~.
+- khal
+- vdirsyncer
 
-#### clean
+## TODO
 
-Remove install leftovers.
-
-#### dirs
-
-Create basic dirs if they don't exist:
-
-* ~/bin
-* ~/work
-* ~/Projects
-* ~/virtualenv
-
-#### installzsh
-
-One time symlink hack to fix pure prompt install after antigen bundle.
-
-#### installhomebrew
-
-Bootstrap homebrew from brew.sh
-
-#### installbrews
-
-Install tools.
-
-#### installcasks
-
-Install native osx apps when possible.
-
-#### generatebrewinstall
-
-Generate script to install brews matching current system.
-
-#### generatecaskinstall
-
-Generate script to install casks matching current system.
-
-#### installgpg
-
-Bootstrap gnupg if it doesn't exist.  For rvm and yum.
-
-Should eventually copy files from some secured encrypted storage like github or owncloud.
-
-#### installssh
-
-Bootstrap ssh key if it doesn't exist.  For new machines.
-
-Should eventually copy files from some secured encrypted storage like github or owncloud.
-
-#### installrvm
-
-Bootstrap rvm from rvm.io
-
-#### installruby
-
-Use rvm to install some ruby.
-
-#### installpython
-
-Bootstrap python 2.7, python 3, and virtualenv.
-
-#### installxcode
-
-TODO Xcode is a prereq but not sure how to automate this install.
+Migrate this Makefile to Ansible eventually.
 
