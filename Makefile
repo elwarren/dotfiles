@@ -25,12 +25,18 @@ help:
 diff:
 	diff home/dot_zshrc  ~/.zshrc  || true
 	diff home/dot_bashrc ~/.bashrc || true
+	diff home/dot_bash_profile ~/.bash_profile || true
+	diff home/dot_inputrc ~/.inputrc || true
+	diff home/dot_tmux.conf ~/.tmux.conf || true
 	diff home/dot_vimrc  ~/.vimrc  || true
 	diff config/nvim/init.vim ~/.config/nvim/init.vim || true
 
 updaterepo:
 	cp ~/.zshrc  home/dot_zshrc
 	cp ~/.bashrc home/dot_bashrc
+	cp ~/.bash_profile home/dot_bash_profile
+	cp ~/.inputrc home/dot_inputrc
+	cp ~/.tmux.conf home/dot_tmux.conf
 	cp ~/.vimrc  home/dot_vimrc  
 	cp ~/.config/nvim/init.vim  config/nvim/init.vim
 
@@ -40,11 +46,20 @@ installdots:
 	touch ~/.zhistory
 	cp ~/.bashrc ~/.bashrc.make.backup || true 
 	cp home/dot_bashrc ~/.bashrc
+	cp ~/.bash_profile ~/.bash_profile.make.backup || true 
+	cp home/dot_bash_profile ~/.bash_profile
+	cp ~/.inputrc ~/.inputrc.make.backup || true
+	cp home/dot_inputrc ~/.inputrc
+	cp ~/.tmux.conf ~/.tmux.conf.make.backup || true
+	cp home/dot_tmux.conf ~/.tmux.conf
 	cp ~/.vimrc  ~/.vimrc.make.backup  || true 
 	cp home/dot_vimrc ~/.vimrc
 	mkdir -p ~/.config/nvim
 	cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.make.backup || true
 	cp config/nvim/init.vim ~/.config/nvim/init.vim 
+
+installtmux:
+	pip install powerline-status
 
 installvimplug:
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -64,11 +79,13 @@ clean:
 	rm -f /tmp/mybrew
 
 dirs:
-	mkdir ~/.config     || true
-	mkdir ~/bin         || true
-	mkdir ~/Projects    || true
-	mkdir ~/work        || true
-	mkdir ~/virtualenvs || true
+	mkdir -p ~/.config
+	mkdir -p ~/.local
+	mkdir -p ~/.cache
+	mkdir -p ~/bin
+	mkdir -p ~/Projects
+	mkdir -p ~/work
+	mkdir -p ~/virtualenvs
 	
 installzsh:
 	# HACK to fix pure theme, must be done after antigen bundle is installed https://github.com/sindresorhus/pure
@@ -114,12 +131,9 @@ installruby: installrvm
 	gem install bundle
 
 installpython: dirs
-	# python using ~/virtualenvs
 	brew install python3
-	brew install python
-	brew linkapps python
+	# brew link python3
 	pip install --upgrade pip
-	pip install virtualenv
 
 installxcode:
 	# TODO how to do this?
