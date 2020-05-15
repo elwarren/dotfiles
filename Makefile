@@ -58,8 +58,9 @@ installdots:
 	cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.make.backup || true
 	cp config/nvim/init.vim ~/.config/nvim/init.vim 
 
-installtmux:
+installpowerline:
 	pip install powerline-status
+	# TODO powerline available for tmux, neovim, and others. Copy custom config.json here
 
 installvimplug:
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

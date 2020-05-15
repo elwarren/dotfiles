@@ -164,6 +164,10 @@ bindkey -M viins 'jj' vi-cmd-mode
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ########################################################################
+# calendars
+alias today='/usr/local/bin/khal calendar --format "{calendar-color}{title} {location}"'
+alias next='/usr/local/bin/khal list --format "{calendar-color}{title} {location}"'
+########################################################################
 # setup perl
 PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
