@@ -178,3 +178,8 @@ generatedockerlist:
 
 installdockers:
 	bin/docker.pull.images
+
+configterminal:
+	# https://github.com/Mayccoll/Gogh
+	bash -c  "$(wget -qO- https://git.io/vQgMr)"
+

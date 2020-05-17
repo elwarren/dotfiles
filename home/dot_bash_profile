@@ -1,0 +1,7 @@
+source ~/.bashrc
+
+export PATH="~/bin:$PATH"
+
+set -o vi
+
+
