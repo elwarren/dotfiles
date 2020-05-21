@@ -168,7 +168,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 alias next='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
 alias today='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
 alias tomorrow='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
-alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+alias week='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
 
 ########################################################################
 # setup perl
