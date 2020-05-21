@@ -71,7 +71,7 @@ export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 HISTFILE=$HOME/.zhistory
 HISTSIZE=SAVEHIST=5000
 # don't save passwords in history
-HISTORY_IGNORE=todo:jrnl:today:next
+HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
 setopt HIST_IGNORE_SPACE
 setopt incappendhistory
 setopt sharehistory
@@ -133,7 +133,7 @@ test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
 
 if [[ -e /usr/local/bin/exa ]]; then
   alias ls='exa --icons'
-  alias ll='exa --icons --long --all --grid'
+  alias ll='exa --icons --long --all '
   alias lsatr='exa --icons --long --all --sort modified'
 fi
 
@@ -165,8 +165,11 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 ########################################################################
 # calendars
-alias today='/usr/local/bin/khal calendar --format "{calendar-color}{title} {location}"'
-alias next='/usr/local/bin/khal list --format "{calendar-color}{title} {location}"'
+alias next='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
+alias today='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
+alias tomorrow='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
+alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+
 ########################################################################
 # setup perl
 PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
