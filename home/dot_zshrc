@@ -8,6 +8,7 @@ export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
+export PAGER="less -g -R -J -r"
 export VISUAL=vi
 export EDITOR=vi
 export TZ="America/New_York"
@@ -165,10 +166,16 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 ########################################################################
 # calendars
+# TODO move these into shell scripts
 alias next='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
 alias today='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
 alias tomorrow='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
-alias week='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+
+########################################################################
+# setup jira
+export JIRA_CONFIG="$HOME/.jira/config.json"
+
 
 ########################################################################
 # setup perl
@@ -195,3 +202,6 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 #unset __conda_setup
 # <<< conda initialize <<<
 
+########################################################################
+# setup opam 
+test -r /Users/wlindsey/.opam/opam-init/init.zsh && . /Users/wlindsey/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
