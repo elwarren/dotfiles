@@ -60,3 +60,6 @@ let g:airline_powerline_fonts = 1
 
 let g:neomake_python_enabled_makers = ['pylint']
 
+" disable folding everywhere, can't read my mardown files with it enabled
+autocmd BufWritePost,BufEnter * set nofoldenable foldmethod=manual foldlevelstart=99
+
