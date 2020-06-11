@@ -8,20 +8,26 @@ export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PAGER="less -g -R -J -r"
-export VISUAL=vi
-export EDITOR=vi
 export TZ="America/New_York"
 # gnu coreutils for ls
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # sqlite3 from brew
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # my bin
+# TODO should move this to ~/.local/bin but need to review deps
 export PATH="$HOME/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
 
 ########################################################################
+# editing and paging
+export PAGER="less -g -R -J -r"
+# never want these tools to use pager
+export AWS_PAGER=""
+export GIT_PAGER=""
+# use vi style when we have a choice
+export VISUAL=vi
+export EDITOR=vi
 # use nvim when we can
 if [[ -e /usr/local/bin/nvim ]];then
   export EDITOR=/usr/local/bin/nvim
@@ -167,8 +173,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 ########################################################################
 # calendars
 # TODO move these into shell scripts
-alias next='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
-alias today='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
+alias today='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
+alias next='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
 alias tomorrow='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
 alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
 
@@ -176,6 +182,10 @@ alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-s
 # setup jira
 export JIRA_CONFIG="$HOME/.jira/config.json"
 
+########################################################################
+# setup syncing
+alias sync-cal='vdirsyncer sync outlook'
+alias sync-cals='vdirsyncer sync'
 
 ########################################################################
 # setup perl
@@ -204,4 +214,6 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 ########################################################################
 # setup opam 
-test -r /Users/wlindsey/.opam/opam-init/init.zsh && . /Users/wlindsey/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# test -r /Users/wlindsey/.opam/opam-init/init.zsh && . /Users/wlindsey/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# fin
