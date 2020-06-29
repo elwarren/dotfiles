@@ -97,7 +97,7 @@ antigen use oh-my-zsh
 # antigen theme https://github.com/iam4x/zsh-iterm-touchbar
 # theme
 # author suggests NOT using antigen theme pure
-antigen bundle joel-porquet/zsh-dircolors-solarized.git
+#antigen bundle joel-porquet/zsh-dircolors-solarized.git
 antigen bundle sindresorhus/pure
 # git
 antigen bundle git
@@ -107,20 +107,18 @@ antigen bundle python
 antigen bundle pip
 antigen bundle virtualenv
 # node
-antigen bundle node
+#antigen bundle node
 #antigen bundle npm
 # ruby
 #antigen bundle rvm
-antigen bundle gem
+#antigen bundle gem
 # misc
 antigen bundle aws
 antigen bundle tmuxinator
 # osx
-if [[ $CURRENT_OS == 'OS X' ]]; then
+if [[ "$(uname -o)" == "Darwin" ]]; then
     antigen bundle brew
     antigen bundle osx
-elif [[ $CURRENT_OS == 'OS X' ]]; then
-    true
 fi
 # fish style
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -160,6 +158,10 @@ test -e $HOME/.bash_private && source $HOME/.bash_private
 test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.sh
 
 ########################################################################
+# setup op
+alias ops='eval $(op signin)'
+
+########################################################################
 # set keymappings
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
@@ -186,6 +188,7 @@ export JIRA_CONFIG="$HOME/.jira/config.json"
 # setup syncing
 alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
+alias sync-cals-git='cd ~/.local/share/calendars;git add *;git commit -m "$(ts)" -a;popd'
 
 ########################################################################
 # setup perl

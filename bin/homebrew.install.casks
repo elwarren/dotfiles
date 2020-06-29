@@ -9,6 +9,7 @@
      brew cask install Caskroom/cask/slack
      brew cask install Caskroom/cask/sublime-text
      brew cask install Caskroom/cask/tuntap
+     brew cask install Caskroom/cask/typora
      brew cask install Caskroom/cask/vlc
      brew cask install Caskroom/cask/vlcstreamer
      brew cask install Caskroom/cask/wireshark

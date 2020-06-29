@@ -63,3 +63,7 @@ let g:neomake_python_enabled_makers = ['pylint']
 " disable folding everywhere, can't read my mardown files with it enabled
 autocmd BufWritePost,BufEnter * set nofoldenable foldmethod=manual foldlevelstart=99
 
+" yaml should be two spaces not four
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+
