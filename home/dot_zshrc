@@ -59,19 +59,21 @@ export GOPATH=$HOME/work/gocode
 ########################################################################
 # setup java
 # Set java 8 as default
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
-alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
-alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
-alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
+if [ -e /usr/libexec/java_home ];then
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+  alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
+  alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
+  alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
+  alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
+fi
 
 ########################################################################
 # setup ruby environment with rbenv
-eval "$(rbenv init -)"
+test -e rbenv && eval "$(rbenv init -)"
 
 ########################################################################
 # setup python environment with pyenv and virtualenv
-export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
 ########################################################################
 # setup zsh
@@ -148,10 +150,6 @@ unsetopt CORRECT
 DISABLE_CORRECTION="true"
 
 ########################################################################
-# customize touchbar
-# source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
-
-########################################################################
 # private environment stuff that should not be synced to github
 test -e $HOME/.bash_private && source $HOME/.bash_private
 
@@ -160,6 +158,7 @@ test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.s
 ########################################################################
 # setup op
 alias ops='eval $(op signin)'
+alias ops-check='op vaults list'
 
 ########################################################################
 # set keymappings
@@ -175,10 +174,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 ########################################################################
 # calendars
 # TODO move these into shell scripts
-alias today='/usr/local/bin/khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
-alias next='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
-alias tomorrow='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
-alias week='/usr/local/bin/khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+alias today='khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
+alias next='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
+alias tomorrow='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
+alias week='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
 
 ########################################################################
 # setup jira
@@ -188,7 +187,7 @@ export JIRA_CONFIG="$HOME/.jira/config.json"
 # setup syncing
 alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
-alias sync-cals-git='cd ~/.local/share/calendars;git add *;git commit -m "$(ts)" -a;popd'
+alias sync-cals-git='cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
 
 ########################################################################
 # setup perl

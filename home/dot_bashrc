@@ -1,40 +1,155 @@
+# bashrc adapted from zshrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
 
 # my bin
 export PATH="$HOME/bin:$PATH"
 
+# not ready to fully migrate to XDG but adding in preparation
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+########################################################################
+export WORK_HOME=$HOME/work
+export PROJECTS_HOME=$HOME/Projects
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TZ="America/New_York"
+# gnu coreutils for ls
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# sqlite3 from brew
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+# brew doctor recommends
+export PATH="$PATH:/usr/local/sbin"
+
+########################################################################
+# editing and paging
+export PAGER="less -g -R -J -r"
+# never want these tools to use pager
+export AWS_PAGER=""
+export GIT_PAGER=""
+export SYSTEMD_PAGER=
+# use vi style when we have a choice
+export VISUAL=vi
+export EDITOR=vi
+# use nvim when we can
+if [[ -e /usr/local/bin/nvim ]];then
+  export EDITOR=/usr/local/bin/nvim
+  alias vi=/usr/local/bin/nvim
+  alias vim=/usr/local/bin/nvim
+fi
+
+########################################################################
 # setup oracle instant client 12
 export ORACLE_HOME="$HOME/bin/instantclient_12_1"
 export OCI_DIR="$ORACLE_HOME"
 export TNS_NAMES="$ORACLE_HOME"
+export TNS_ADMIN="$ORACLE_HOME"
 export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$ORACLE_HOME"
 export PATH="$PATH:$ORACLE_HOME"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
 
+########################################################################
 # setup oracle sqlcl
 export LD_LIBRARY_PATH=$HOME/bin/sqlcl/lib
-export PATH=$PATH:$HOME/bin/sqlcl/bin
+export PATH=$HOME/bin/sqlcl/bin:$PATH
 
-# add go to path
+########################################################################
+# setup golang
 export PATH=$PATH:/usr/local/opt/go/libexec/bin
+export GOPATH=$HOME/work/gocode
 
-# private history
-HISTCONTROL=ignorespace
-HISTIGNORE="todo:jrnl:td:today:next:sql"
+########################################################################
+# setup java
+# TODO different between macos and linux
+if [ -e /usr/libexec/java_home ];then
+  # Set java 8 as default
+  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+  alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
+  alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
+  alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
+  alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
+fi
 
+########################################################################
+# setup ruby environment with rbenv
+test -e rbenv && eval "$(rbenv init -)"
+
+########################################################################
+# setup shell
+if [ -f /usr/share/powerline/bash/powerline.sh ]; then
+  source /usr/share/powerline/bash/powerline.sh
+else
+    # TODO setup backup prompt if powerline missing
+    echo "TODO setup PS1"
+fi
+
+########################################################################
+# setup history
+# don't save passwords in history
+HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
+# TODO map these option from zsh back to bash
+HISTSIZE=5000
+SAVEHIST=5000
+# HIST_IGNORE_SPACE
+# INCAPPENDHISTORY
+# SHAREHISTORY
+# EXTENDEDHISTORY
+# HASHLISTALL
+
+########################################################################
+# setup color terminal
+
+# add more color with grc generic colourizer
+# test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
+
+if [[ -e /usr/local/bin/exa ]]; then
+  alias ls='exa --icons'
+  alias ll='exa --icons --long --all '
+  alias lsatr='exa --icons --long --all --sort modified'
+fi
+
+########################################################################
 # private environment stuff that should not be synced to github
 test -e $HOME/.bash_private && source $HOME/.bash_private
 
 test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.sh
 
-if [ -f /usr/local/etc/bash_completion ]; then
-  . /usr/local/etc/bash_completion
-fi
+########################################################################
+# setup op
+alias ops='eval $(op signin)'
+alias ops-check='op list vaults'
 
-# setup ruby env with rbenv
-eval "$(rbenv init -)"
+########################################################################
+# set keymappings
+# TODO how to set keymapping with bash
+set -o vi
+# macbook pro with touchbar and ipad both have no ESC key, map them to jj
+# bindkey -M viins 'jj' vi-cmd-mode
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+########################################################################
+# calendars
+# TODO move these into shell scripts
+alias today='khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'
+alias next='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date "+%Y-%m-%d 00:00") $(date "+%Y-%m-%d 23:59")'
+alias tomorrow='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date=tomorrow "+%Y-%m-%d 00:00") $(date --date=tomorrow "+%Y-%m-%d 23:59")'
+alias week='khal list --format "{calendar-color}{start-end-time-style} {title} {location}" $(date --date="last monday" "+%Y-%m-%d 00:00") $(date --date="next sunday" "+%Y-%m-%d 23:59") --once'
+
+########################################################################
+# setup jira
+export JIRA_CONFIG="$HOME/.jira/config.json"
+
+########################################################################
+# setup syncing
+alias sync-cal='vdirsyncer sync outlook'
+alias sync-cals='vdirsyncer sync'
+alias sync-cals-git='cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
 
 # fin
