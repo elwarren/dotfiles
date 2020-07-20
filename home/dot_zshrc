@@ -73,18 +73,6 @@ eval "$(rbenv init -)"
 # setup python environment with pyenv and virtualenv
 export PATH="/usr/local/opt/python/libexec/bin:$PATH"
 
-########################################################################
-# setup zsh
-HISTFILE=$HOME/.zhistory
-HISTSIZE=SAVEHIST=5000
-# don't save passwords in history
-HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
-setopt HIST_IGNORE_SPACE
-setopt incappendhistory
-setopt sharehistory
-setopt extendedhistory
-setopt hashlistall
-
 # HACK to fix pure prompt install
 fpath=( "$HOME/.zfunctions" $fpath )
 
@@ -101,10 +89,10 @@ antigen use oh-my-zsh
 antigen bundle sindresorhus/pure
 # git
 antigen bundle git
-antigen bundle git-extras
+# antigen bundle git-extras
 # python
-antigen bundle python
-antigen bundle pip
+# antigen bundle python
+# antigen bundle pip
 antigen bundle virtualenv
 # node
 #antigen bundle node
@@ -114,7 +102,7 @@ antigen bundle virtualenv
 #antigen bundle gem
 # misc
 antigen bundle aws
-antigen bundle tmuxinator
+# antigen bundle tmuxinator
 # osx
 if [[ "$(uname -o)" == "Darwin" ]]; then
     antigen bundle brew
@@ -142,6 +130,16 @@ if [[ -e /usr/local/bin/exa ]]; then
   alias lsatr='exa --icons --long --all --sort modified'
 fi
 
+########################################################################
+# setup zsh
+HISTFILE=$HOME/.zhistory
+HISTSIZE=SAVEHIST=5000
+# don't save passwords in history
+HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
+setopt HIST_IGNORE_SPACE
+setopt SHARE_HISTORY
+setopt HASH_LIST_ALL
+
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
@@ -152,6 +150,14 @@ DISABLE_CORRECTION="true"
 # source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
 
 ########################################################################
+# setup iterm on macos
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+########################################################################
+# setup powerline for tmux and vi
+powerline-daemon -q
+
+########################################################################
 # private environment stuff that should not be synced to github
 test -e $HOME/.bash_private && source $HOME/.bash_private
 
@@ -160,6 +166,7 @@ test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.s
 ########################################################################
 # setup op
 alias ops='eval $(op signin)'
+alias ops-check='op list vaults'
 
 ########################################################################
 # set keymappings
@@ -167,10 +174,6 @@ alias ops='eval $(op signin)'
 bindkey -v
 # macbook pro with touchbar and ipad both have no ESC key, map them to jj
 bindkey -M viins 'jj' vi-cmd-mode
-
-########################################################################
-# setup iterm on macos
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ########################################################################
 # calendars
