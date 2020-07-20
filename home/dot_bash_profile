@@ -1,7 +1,12 @@
-source ~/.bashrc
+# .bash_profile
 
-export PATH="~/bin:$PATH"
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
 
+# User specific environment and startup programs
+
+# use vi keys
 set -o vi
-
 
