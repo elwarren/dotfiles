@@ -152,4 +152,7 @@ alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
 alias sync-cals-git='cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
 
+########################################################################
+# setup starship to manage prompt
+which -s starship && eval "$(starship init bash)"
 # fin
