@@ -27,7 +27,22 @@ prompt_order = [
 [directory]
 truncate_to_repo=false
 truncate_length=20
+style="blue"
+
+[git_branch]
 style="dimmed blue"
+
+[git_commit]
+style="FFC0CB"
+modified.style="FFC0CB"
+
+[git_state]
+style="FFC0CB"
+modified.style="FFC0CB"
+
+[git_status]
+style="FFC0CB"
+modified.style="FFC0CB"
 
 [character]
 style_success="purple"
