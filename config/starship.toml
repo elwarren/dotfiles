@@ -27,4 +27,7 @@ prompt_order = [
 [directory]
 truncate_to_repo=false
 truncate_length=20
-style="light blue"
+style="dimmed blue"
+
+[character]
+style_success="purple"

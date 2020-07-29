@@ -83,26 +83,16 @@ fi
 test -e rbenv && eval "$(rbenv init -)"
 
 ########################################################################
-# setup shell
-if [ -f /usr/share/powerline/bash/powerline.sh ]; then
-  source /usr/share/powerline/bash/powerline.sh
-else
-    # TODO setup backup prompt if powerline missing
-    echo "TODO setup PS1"
-fi
-
-########################################################################
 # setup history
 # don't save passwords in history
 HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
-# TODO map these option from zsh back to bash
-HISTSIZE=5000
-SAVEHIST=5000
-# HIST_IGNORE_SPACE
-# INCAPPENDHISTORY
-# SHAREHISTORY
-# EXTENDEDHISTORY
-# HASHLISTALL
+# unlimited history
+HISTSIZE=
+HISTFILESIZE=
+shopt -s direxpand
+shopt -s histappend
+HISTCONTROL='ignoreboth'
+# HISTTIMEFORMAT="[%F %T] "
 
 ########################################################################
 # setup color terminal
@@ -153,6 +143,13 @@ alias sync-cals='vdirsyncer sync'
 alias sync-cals-git='cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
 
 ########################################################################
-# setup starship to manage prompt
-which -s starship && eval "$(starship init bash)"
+# setup shell
+# disable this as we've already defined this via terminal theme
+unset LS_COLORS
+
+# setup starship for prompt if installed
+which starship > /dev/null 2>&1 && eval "$(starship init bash)"
+# fallback to powerline i guess
+test -e /usr/share/powerline/bash/powerline.sh && source /usr/share/powerline/bash/powerline.sh
+
 # fin
