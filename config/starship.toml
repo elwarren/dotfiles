@@ -44,5 +44,9 @@ modified.style="FFC0CB"
 style="FFC0CB"
 modified.style="FFC0CB"
 
+[cmd_duration]
+prefix=""
+
 [character]
 style_success="purple"
+
