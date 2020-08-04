@@ -190,10 +190,10 @@ alias week='khal list --format "{calendar-color}{start-end-time-style} {title} {
 export JIRA_CONFIG="$HOME/.jira/config.json"
 
 ########################################################################
-# setup syncing
+# setup calendar syncing
 alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
-alias sync-cals-git='cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
+alias sync-cals-git='pushd;cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
 
 ########################################################################
 # setup perl
