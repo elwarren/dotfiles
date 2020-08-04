@@ -146,7 +146,8 @@ alias sync-cals-git='pushd;cd $HOME/.local/share/calendars;git add *;git commit 
 # setup shell
 # disable this as we've already defined this via terminal theme
 unset LS_COLORS
-
+# bash completion
+test -r /usr/local/etc/profile.d/bash_completion.sh && source /usr/local/etc/profile.d/bash_completion.sh
 # setup starship for prompt if installed
 which starship > /dev/null 2>&1 && eval "$(starship init bash)"
 # fallback to powerline i guess
