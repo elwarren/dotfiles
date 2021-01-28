@@ -13,9 +13,8 @@ export TZ="America/New_York"
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # sqlite3 from brew
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
-# my bin
-# TODO should move this to ~/.local/bin but need to review deps
-export PATH="$HOME/bin:$PATH"
+# my bin and local bin
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
 
@@ -37,6 +36,8 @@ fi
 
 ########################################################################
 # setup oracle instant client 12
+# TODO move ORACLE_HOME to ~/.local
+if [[ -d "$HOME/bin/instantclient_12_1" ]];then
 export ORACLE_HOME="$HOME/bin/instantclient_12_1"
 export OCI_DIR="$ORACLE_HOME"
 export TNS_NAMES="$ORACLE_HOME"
@@ -45,6 +46,7 @@ export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$ORACLE_HOME"
 export PATH="$PATH:$ORACLE_HOME"
 export NLS_LANG="AMERICAN_AMERICA.UTF8"
+fi
 
 ########################################################################
 # setup oracle sqlcl
@@ -58,6 +60,7 @@ export GOPATH=$HOME/work/gocode
 
 ########################################################################
 # setup java
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
 # Set java 8 as default
 if [ -e /usr/libexec/java_home ];then
   export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
@@ -73,12 +76,15 @@ test -e rbenv && eval "$(rbenv init -)"
 
 ########################################################################
 # setup python environment with pyenv and virtualenv
-# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init -)"
+fi
 
 # HACK to fix pure prompt install
 fpath=( "$HOME/.zfunctions" $fpath )
 
 # antigen from brew
+if [[ -e /usr/local/share/antigen/antigen.zsh ]];then
 # source /usr/local/share/antigen.zsh
 source /usr/local/share/antigen/antigen.zsh
 # load oh-my-zsh library
@@ -106,7 +112,7 @@ antigen bundle virtualenv
 antigen bundle aws
 # antigen bundle tmuxinator
 # osx
-if [[ "$(uname -o)" == "Darwin" ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
     antigen bundle brew
     antigen bundle osx
 fi
@@ -115,7 +121,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 ## do it!
 antigen apply
-
+fi
 ########################################################################
 # setup color terminal
 # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
@@ -157,7 +163,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 ########################################################################
 # setup powerline for tmux and vi
-powerline-daemon -q
+[[ "$(uname -s)" == "Linux" ]] && powerline-daemon -q
 
 ########################################################################
 # private environment stuff that should not be synced to github
