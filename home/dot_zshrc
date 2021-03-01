@@ -1,7 +1,7 @@
 # my .zshrc
 # still learning zsh
 #
-#set -x
+# set -x
 #
 ########################################################################
 export WORK_HOME=$HOME/work
@@ -10,12 +10,11 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TZ="America/New_York"
 # gnu coreutils for ls
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # sqlite3 from brew
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
-# my bin
-# TODO should move this to ~/.local/bin but need to review deps
-export PATH="$HOME/bin:$PATH"
+# my bin and local bin
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
 
@@ -37,19 +36,24 @@ fi
 
 ########################################################################
 # setup oracle instant client 12
-export ORACLE_HOME="$HOME/bin/instantclient_12_1"
-export OCI_DIR="$ORACLE_HOME"
-export TNS_NAMES="$ORACLE_HOME"
-export TNS_ADMIN="$ORACLE_HOME"
-export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="$ORACLE_HOME"
-export PATH="$PATH:$ORACLE_HOME"
-export NLS_LANG="AMERICAN_AMERICA.UTF8"
+# TODO move ORACLE_HOME to ~/.local
+if [[ -d "$HOME/bin/instantclient_12_1" ]];then
+  export ORACLE_HOME="$HOME/bin/instantclient_12_1"
+  export OCI_DIR="$ORACLE_HOME"
+  export TNS_NAMES="$ORACLE_HOME"
+  export TNS_ADMIN="$ORACLE_HOME"
+  export DYLD_LIBRARY_PATH="$ORACLE_HOME:$DYLD_LIBRARY_PATH"
+  export LD_LIBRARY_PATH="$ORACLE_HOME"
+  export PATH="$PATH:$ORACLE_HOME"
+  export NLS_LANG="AMERICAN_AMERICA.UTF8"
+fi
 
 ########################################################################
 # setup oracle sqlcl
-export LD_LIBRARY_PATH=$HOME/bin/sqlcl/lib
-export PATH=$HOME/bin/sqlcl/bin:$PATH
+if [[ -d "$HOME/bin/sqlcl" ]];then
+  export LD_LIBRARY_PATH=$HOME/bin/sqlcl/lib
+  export PATH=$HOME/bin/sqlcl/bin:$PATH
+fi
 
 ########################################################################
 # setup golang
@@ -58,6 +62,7 @@ export GOPATH=$HOME/work/gocode
 
 ########################################################################
 # setup java
+[[ -d "/usr/local/opt/openjdk/bin" ]] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
 # Set java 8 as default
 if [ -e /usr/libexec/java_home ];then
   export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
@@ -69,67 +74,34 @@ fi
 
 ########################################################################
 # setup ruby environment with rbenv
-test -e rbenv && eval "$(rbenv init -)"
+# test -e rbenv && eval "$(rbenv init -)"
 
 ########################################################################
 # setup python environment with pyenv and virtualenv
-# export PATH="/usr/local/opt/python/libexec/bin:$PATH"
-
-# HACK to fix pure prompt install
-fpath=( "$HOME/.zfunctions" $fpath )
-
-# antigen from brew
-# source /usr/local/share/antigen.zsh
-source /usr/local/share/antigen/antigen.zsh
-# load oh-my-zsh library
-antigen use oh-my-zsh
-# touchbar
-# antigen theme https://github.com/iam4x/zsh-iterm-touchbar
-# theme
-# author suggests NOT using antigen theme pure
-#antigen bundle joel-porquet/zsh-dircolors-solarized.git
-antigen bundle sindresorhus/pure
-# git
-antigen bundle git
-# antigen bundle git-extras
-# python
-# antigen bundle python
-# antigen bundle pip
-antigen bundle virtualenv
-# node
-#antigen bundle node
-#antigen bundle npm
-# ruby
-#antigen bundle rvm
-#antigen bundle gem
-# misc
-antigen bundle aws
-# antigen bundle tmuxinator
-# osx
-if [[ "$(uname -o)" == "Darwin" ]]; then
-    antigen bundle brew
-    antigen bundle osx
+if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init -)"
 fi
-# fish style
-antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle zsh-users/zsh-autosuggestions
-## do it!
-antigen apply
 
 ########################################################################
 # setup color terminal
-# use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
-unset LSCOLORS
-# ls colors seems broken after macos
-test -e /usr/local/bin/gls && alias ls='gls --color=auto'
-
 # add more color with grc generic colourizer
 test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
+
+# use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
+unset LSCOLORS
 
 if [[ -e /usr/local/bin/exa ]]; then
   alias ls='exa --icons'
   alias ll='exa --icons --long --all '
   alias lsatr='exa --icons --long --all --sort modified'
+fi
+
+# ls colors seems broken after antigen macos
+if [[ -e /usr/local/bin/gls ]];then
+  alias ls='gls --color=auto'
+else
+  # why use gls if ls works
+   alias ls='ls -G'
 fi
 
 ########################################################################
@@ -148,22 +120,18 @@ unsetopt CORRECT
 DISABLE_CORRECTION="true"
 
 ########################################################################
-# customize touchbar
-# source ~/.zsh/zsh-apple-touchbar/zsh-apple-touchbar.zsh
-
-########################################################################
 # setup iterm on macos
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 ########################################################################
 # setup powerline for tmux and vi
-powerline-daemon -q
+[[ "$(uname -s)" == "Linux" ]] && powerline-daemon -q
 
 ########################################################################
 # private environment stuff that should not be synced to github
 test -e $HOME/.bash_private && source $HOME/.bash_private
 
-test -e /usr/local/bin/finto-helpers.sh && source /usr/local/bin/finto-helpers.sh
+test -e $HOME/bin/finto-helpers.sh && source $HOME/bin/finto-helpers.sh
 
 ########################################################################
 # setup op
@@ -175,7 +143,7 @@ alias ops-check='op list vaults'
 # vi mode has to be set after antigen oh-my-zsh else it gets lost
 bindkey -v
 # macbook pro with touchbar and ipad both have no ESC key, map them to jj
-bindkey -M viins 'jj' vi-cmd-mode
+# bindkey -M viins 'jj' vi-cmd-mode
 
 ########################################################################
 # calendars
@@ -197,31 +165,27 @@ alias sync-cals-git='pushd;cd $HOME/.local/share/calendars;git add *;git commit 
 
 ########################################################################
 # setup perl
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+# TODO why do I need this, exiftool may be the only perl I use anymore?
+if [[ -d "$HOME/perl5" ]];then
+  PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+  PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+  PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+  PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+  PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
+fi
 
 ########################################################################
-# setup conda python
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('$HOME/opt/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "$HOME/opt/miniconda3/etc/profile.d/conda.sh" ]; then
-#        . "$HOME/opt/miniconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="$HOME/opt/miniconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
-# <<< conda initialize <<<
+# setup prompt
+if which starship > /dev/null 2>&1 ;then
+  # setup starship for prompt if installed
+  eval "$(starship init zsh)"
+else
+  # fallback to powerline i guess
+  test -e /usr/share/powerline/zsh/powerline.sh && source /usr/share/powerline/zsh/powerline.sh
+fi
 
 ########################################################################
-# setup opam 
-# test -r /Users/wlindsey/.opam/opam-init/init.zsh && . /Users/wlindsey/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# disable global apple zsh function defaults
+unfunction update_terminal_cwd
 
 # fin

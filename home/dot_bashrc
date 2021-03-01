@@ -125,6 +125,10 @@ set -o vi
 # bindkey -M viins 'jj' vi-cmd-mode
 
 ########################################################################
+# net
+alias ip="ifconfig -a | egrep 'inet|^\w' | sed 's/flags.*//'"
+
+########################################################################
 # calendars
 # TODO move these into shell scripts
 alias today='khal calendar --format "{calendar-color}{start-end-time-style} {title} {location}"'

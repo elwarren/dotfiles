@@ -1,0 +1,4 @@
+#!/bin/bash
+
+LAST=${1:-10}
+/bin/ls -l1tr $HOME/work | tail -n ${LAST}
