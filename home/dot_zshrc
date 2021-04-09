@@ -10,8 +10,6 @@ export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TZ="America/New_York"
-# gnu coreutils for ls
-# export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 # sqlite3 from brew
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 # my bin and local bin
@@ -90,10 +88,8 @@ test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
 
 ########################################################################
 # setup ls stuff
-# use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
-unset LSCOLORS
 
-alias ll='ls -l'
+alias ll='ls -l --color=auto'
 
 if [[ -e /usr/local/bin/exa ]]; then
   alias ls='exa --icons'
@@ -101,12 +97,22 @@ if [[ -e /usr/local/bin/exa ]]; then
   alias lsatr='exa --icons --long --all --sort modified'
 fi
 
-# ls colors seems broken after antigen macos
-if [[ -e /usr/local/bin/gls ]];then
-  alias ls='gls --color=auto'
+# HACK these ls shenanigans mostly just for macos
+if [[ "$(uname -s)" == "Linux" ]];then
+  alias ls='ls --color=auto'
 else
-  # why use gls if ls works
-   alias ls='ls -G'
+  # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
+  # unset LSCOLORS
+  # gnu coreutils for ls on affects macos and brew
+  # export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+  # ls colors seems broken after antigen macos
+  if [[ -e /usr/local/bin/gls ]];then
+    alias ls='gls --color=auto'
+  else
+    # why use gls if macos ls works with -G
+     alias ls='ls -G'
+  fi
 fi
 
 ########################################################################
@@ -114,7 +120,7 @@ fi
 HISTFILE=$HOME/.zhistory
 HISTSIZE=SAVEHIST=5000
 # don't save passwords in history
-HISTORY_IGNORE=todo:jrnl:today:next:today:tomorrow:week:wl:work:worklog
+HISTORY_IGNORE=td:todo:today:next:today:tomorrow:week:wl:work:worklog:jrnl:zk
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt HASH_LIST_ALL
@@ -123,14 +129,6 @@ setopt HASH_LIST_ALL
 unsetopt CORRECT
 # Disable autocorrection
 DISABLE_CORRECTION="true"
-
-# Enable shell completions, this used to be provided by ohmyzsh
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
 
 ########################################################################
 # setup iterm on macos
@@ -199,7 +197,7 @@ fi
 
 ########################################################################
 # disable global apple zsh function defaults
-unfunction update_terminal_cwd
+[[ "$(uname -s)" == "Darwin" ]] && unfunction update_terminal_cwd
 
 ########################################################################
 # misc
