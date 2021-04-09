@@ -67,6 +67,12 @@ export PATH=$PATH:/usr/local/opt/go/libexec/bin
 export GOPATH=$HOME/work/gocode
 
 ########################################################################
+# setup python
+if command -v pyenv 1>/dev/null 2>&1; then
+      eval "$(pyenv init -)"
+fi
+
+########################################################################
 # setup java
 # TODO different between macos and linux
 if [ -e /usr/libexec/java_home ];then

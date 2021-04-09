@@ -59,7 +59,7 @@ installdots:
 	cp config/nvim/init.vim ~/.config/nvim/init.vim 
 
 installpowerline:
-	pip install powerline-status
+	pip install --user powerline-status
 	# TODO powerline available for tmux, neovim, and others. Copy custom config.json here
 
 installvimplug:
@@ -132,14 +132,11 @@ installruby: installrvm
 	gem install bundle
 
 installpython: dirs
-	brew install python3
-	# brew link python3
-	pip install --upgrade pip
+	brew install pyenv
+	pyenv install 3.9.1
 
 installxcode:
-	# TODO how to do this?
-	# curl xcode maybe
-	# after install this acccepts license
+	# install xcode and acccepts license
 	xcode-select --install
 
 installhomebrew:
