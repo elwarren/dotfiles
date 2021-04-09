@@ -4,6 +4,7 @@
 # set -x
 #
 ########################################################################
+export XDG_CONFIG_HOME=$HOME/.config
 export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
 export LANG=en_US.UTF-8
@@ -87,8 +88,12 @@ fi
 # add more color with grc generic colourizer
 test -e /usr/local/etc/grc.zsh && source /usr/local/etc/grc.zsh
 
+########################################################################
+# setup ls stuff
 # use ohmyzsh seems to set this, disabling because conflict with LS_COLORS
 unset LSCOLORS
+
+alias ll='ls -l'
 
 if [[ -e /usr/local/bin/exa ]]; then
   alias ls='exa --icons'
@@ -118,6 +123,14 @@ setopt HASH_LIST_ALL
 unsetopt CORRECT
 # Disable autocorrection
 DISABLE_CORRECTION="true"
+
+# Enable shell completions, this used to be provided by ohmyzsh
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 ########################################################################
 # setup iterm on macos
@@ -187,5 +200,14 @@ fi
 ########################################################################
 # disable global apple zsh function defaults
 unfunction update_terminal_cwd
+
+########################################################################
+# misc
+alias highlight='highlight -S markdown -O xterm256'
+
+########################################################################
+# setup gpg github
+# FIXME this breaks zsh and or tmux 
+# export GPG_TTY=$(tty)
 
 # fin
