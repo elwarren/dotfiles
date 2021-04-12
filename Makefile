@@ -93,6 +93,9 @@ installzsh:
 	mkdir ~/.zfunctions
 	ln -sf ~/.antigen/bundles/sindresorhus/pure/async.zsh ~/.zfunctions/async
 	ln -sf ~/.antigen/bundles/sindresorhus/pure/pure.zsh ~/.zfunctions/prompt_pure_setup
+	# fix shell completion warning
+	chmod g-w /usr/local/share/zsh /usr/local/share/zsh/site-functions
+	compaudit
 
 installgpg: ~/.gnupg
 	# setup gpg or skip and install existing files?
