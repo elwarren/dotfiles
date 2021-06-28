@@ -56,8 +56,11 @@ fi
 
 ########################################################################
 # setup golang
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/work/gocode
+if [[ -d "$HOME/.local/go" ]];then
+  # export GOROOT=unused
+  export GOPATH=$HOME/.local/go
+  export PATH=${PATH}:${GOPATH}/bin
+fi
 
 ########################################################################
 # setup java
@@ -118,17 +121,29 @@ fi
 ########################################################################
 # setup zsh
 HISTFILE=$HOME/.zhistory
-HISTSIZE=SAVEHIST=5000
+HISTSIZE=5000
+SAVEHIST=5000
 # don't save passwords in history
 HISTORY_IGNORE=td:todo:today:next:today:tomorrow:week:wl:work:worklog:jrnl:zk
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt HASH_LIST_ALL
 
+# disable % when no newline
+PROMPT_EOL_MARK=''
+
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
 DISABLE_CORRECTION="true"
+
+# Enable shell completions, this used to be provided by ohmyzsh
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 ########################################################################
 # setup iterm on macos
@@ -170,9 +185,10 @@ export JIRA_CONFIG="$HOME/.jira/config.json"
 
 ########################################################################
 # setup calendar syncing
+CALDIR="$HOME/.local/share/calendars"
 alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
-alias sync-cals-git='pushd;cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
+alias sync-cals-git='git -C "$CALDIR" add *;git -C "$CALDIR" commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a'
 
 ########################################################################
 # setup perl
@@ -197,11 +213,15 @@ fi
 
 ########################################################################
 # disable global apple zsh function defaults
-[[ "$(uname -s)" == "Darwin" ]] && unfunction update_terminal_cwd
+[[ "$(uname -s)" == "Darwin" ]] && unfunction update_terminal_cwd > /dev/null 2>&1 
 
 ########################################################################
 # misc
-alias highlight='highlight -S markdown -O xterm256'
+alias highlight='highlight -O xterm256'
+alias highmd='highlight -S markdown -O xterm256'
+alias highxml='highlight -S xml -O xterm256'
+alias highhtml='highlight -S html -O xterm256'
+alias highjson='highlight -S json -O xterm256'
 
 ########################################################################
 # setup gpg github

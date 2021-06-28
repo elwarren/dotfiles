@@ -183,3 +183,6 @@ configterminal:
 	# https://github.com/Mayccoll/Gogh
 	bash -c  "$(wget -qO- https://git.io/vQgMr)"
 
+configscreenshots:
+	defaults write com.apple.screencapture location $$HOME/Pictures/ss
+
