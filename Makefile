@@ -27,8 +27,9 @@ diff:
 	diff home/dot_bashrc ~/.bashrc || true
 	diff home/dot_bash_profile ~/.bash_profile || true
 	diff home/dot_inputrc ~/.inputrc || true
-	diff home/dot_tmux.conf ~/.tmux.conf || true
 	diff home/dot_vimrc  ~/.vimrc  || true
+	diff config/tmux/tmux.conf ~/.config/tmux/tmux.conf || true
+	diff config/powerline/powerline.conf ~/.config/powerline/powerline.conf || true
 	diff config/nvim/init.vim ~/.config/nvim/init.vim || true
 
 updaterepo:
@@ -36,8 +37,9 @@ updaterepo:
 	cp ~/.bashrc home/dot_bashrc
 	cp ~/.bash_profile home/dot_bash_profile
 	cp ~/.inputrc home/dot_inputrc
-	cp ~/.tmux.conf home/dot_tmux.conf
 	cp ~/.vimrc  home/dot_vimrc  
+	cp ~/.config/tmux/tmux.conf config/tmux/tmux.conf
+	cp ~/.config/poerline/powerline.conf config/powerline/powerline.conf
 	cp ~/.config/nvim/init.vim  config/nvim/init.vim
 
 installdots:
@@ -50,17 +52,25 @@ installdots:
 	cp home/dot_bash_profile ~/.bash_profile
 	cp ~/.inputrc ~/.inputrc.make.backup || true
 	cp home/dot_inputrc ~/.inputrc
-	cp ~/.tmux.conf ~/.tmux.conf.make.backup || true
-	cp home/dot_tmux.conf ~/.tmux.conf
 	cp ~/.vimrc  ~/.vimrc.make.backup  || true 
 	cp home/dot_vimrc ~/.vimrc
 	mkdir -p ~/.config/nvim
 	cp ~/.config/nvim/init.vim ~/.config/nvim/init.vim.make.backup || true
 	cp config/nvim/init.vim ~/.config/nvim/init.vim 
+	mkdir -p ~/.config/tmux
+	cp ~/.config/tmux/tmux.conf ~/.config/tmux/tmux.conf.make.backup || true
+	cp config/tmux/tmux.conf ~/.config/tmux/tmux.conf
+	mkdir -p ~/.config/powerline
+	cp ~/.config/powerline/powerline.conf ~/.config/powerline/powerline.conf.make.backup || true
+	cp config/powerline/powerline.conf ~/.config/powerline/powerline.conf
 
 installpowerline:
-	pip install --user powerline-status
+	# TODO now available on ubuntu how to choose linux vs macos
+	# sudo apt install powerline-status
+	# pip install --user powerline-status
 	# TODO powerline available for tmux, neovim, and others. Copy custom config.json here
+	mkdir -p ~/.config/powerline
+	cp config/powerline/powerline.conf ~/.config/powerline
 
 installvimplug:
 	curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

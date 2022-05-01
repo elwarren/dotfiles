@@ -1,0 +1,7 @@
+#!/bin/bash
+
+jupyter labextension install jupyterlab-spreadsheet
+jupyter labextension install jupyterlab-plotly
+jupyter labextension install jupyterlab-drawio
+jupyter labextension install jupyterlab-chart-editor
+
