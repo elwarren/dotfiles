@@ -196,3 +196,5 @@ configterminal:
 configscreenshots:
 	defaults write com.apple.screencapture location $$HOME/Pictures/ss
 
+fixm2wifi:
+	sudo ifconfig awdl0 down
