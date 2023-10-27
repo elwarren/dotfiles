@@ -67,7 +67,15 @@ fi
 
 ########################################################################
 # setup ruby environment with rbenv
-# test -e rbenv && eval "$(rbenv init -)"
+test -e rbenv && eval "$(rbenv init -)"
+
+########################################################################
+# setup node environment with nvm
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "/opt/homebrew/opt/nvm/nvm.sh" ]];then
+  . "/opt/homebrew/opt/nvm/nvm.sh"
+  . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+fi
 
 ########################################################################
 # setup python environment with pyenv and virtualenv
@@ -88,6 +96,18 @@ if [[ $(uname -s) == "Darwin" ]];then
   else
     export PATH="/usr/local/opt/sqlite/bin:$PATH"
   fi
+<<<<<<< HEAD
+=======
+fi
+
+########################################################################
+# setup mysql
+if [[ -d "/opt/homebrew/opt/mysql-client/bin" ]];then
+  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
+>>>>>>> ac01c19 (more languages)
 fi
 
 ########################################################################
@@ -191,7 +211,7 @@ DISABLE_CORRECTION="true"
 
 # Enable shell completions, this used to be provided by ohmyzsh
 if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$(brew --prefix)/share/zsh-completions:$FPATH
 
   autoload -Uz compinit
   compinit
@@ -269,11 +289,11 @@ fi
 
 ########################################################################
 # misc
-alias highlight='highlight -O xterm256'
-alias highmd='highlight -S markdown -O xterm256'
-alias highxml='highlight -S xml -O xterm256'
-alias highhtml='highlight -S html -O xterm256'
-alias highjson='highlight -S json -O xterm256'
+alias highlight='highlight -O xterm256 -s candy'
+alias highmd='highlight -S markdown -O xterm256 -s candy'
+alias highxml='highlight -S xml -O xterm256 -s candy'
+alias highhtml='highlight -S html -O xterm256 -s candy'
+alias highjson='highlight -S json -O xterm256 -s candy'
 
 ########################################################################
 # setup gpg github
