@@ -96,8 +96,6 @@ if [[ $(uname -s) == "Darwin" ]];then
   else
     export PATH="/usr/local/opt/sqlite/bin:$PATH"
   fi
-<<<<<<< HEAD
-=======
 fi
 
 ########################################################################
@@ -107,7 +105,6 @@ if [[ -d "/opt/homebrew/opt/mysql-client/bin" ]];then
   export LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/mysql-client/include"
   export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
->>>>>>> ac01c19 (more languages)
 fi
 
 ########################################################################
