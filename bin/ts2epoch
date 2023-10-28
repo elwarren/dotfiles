@@ -1,0 +1,21 @@
+
+#
+# can be used to parse the output from date and express it in Epoch time.
+# date -j -f "%a %b %d %T %Z %Y" "`date`" "+%s"
+#
+
+if [ -n "$1" ]
+then
+    if [ -n "$2" ]
+    then
+        # show date in UTC
+        /bin/date -juf "%Y%m%d_%H%M%S" "$1" "+%s"
+    else
+        # show date in local tz
+        /bin/date -jf "%Y%m%d_%H%M%S" "$1" "+%s"
+    fi
+else
+    # forgot parameters
+    echo need epoch got[$1]
+fi
+

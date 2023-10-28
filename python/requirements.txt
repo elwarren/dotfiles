@@ -1,7 +1,0 @@
-frontmatter
-motion
-ipython
-jupyter
-jupyterlab
-pyspark
-ipython-sql

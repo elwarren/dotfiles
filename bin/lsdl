@@ -1,0 +1,1 @@
+/bin/ls -latr $HOME/Downloads | tail -n 20
