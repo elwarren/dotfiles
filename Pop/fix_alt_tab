@@ -1,0 +1,3 @@
+# everytime alt-tab this gjs app is there instead of what I expect 
+echo 'https://unix.stackexchange.com/questions/662810/gjs-strange-process-when-alt-tab/675045#675045'
+echo 'To get rid of it, go the the "Extensions" application that comes installed with POP_OS, then disable "Desktop Icons NG (DING)". You won't see gjs in the Alt-Tab shortcut anymore.'

@@ -1,32 +1,26 @@
 # starship config
-prompt_order = [
-    "username",
-    "hostname",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "docker_context",
-    "package",
-    "python",
-    "ruby",
-    "terraform",
-    "conda",
-    "memory_usage",
-    "env_var",
-    "cmd_duration",
-    "custom",
-    "line_break",
-    "jobs",
-    "battery",
-    "time",
-    "character",
-]
+format = """
+ $username\
+ $hostname\
+ $directory\
+ $git_branch\
+ $git_commit\
+ $git_state\
+ $git_status\
+ $python\
+ $memory_usage\
+ $env_var\
+ $cmd_duration\
+ $custom\
+ $line_break\
+ $jobs\
+ $time\
+ $character\
+"""
 
 [directory]
 truncate_to_repo=false
-truncate_length=20
+truncation_length=20
 style="blue"
 
 [git_branch]
@@ -34,19 +28,19 @@ style="dimmed blue"
 
 [git_commit]
 style="FFC0CB"
-modified.style="FFC0CB"
+# modified.style="FFC0CB"
 
 [git_state]
 style="FFC0CB"
-modified.style="FFC0CB"
+# modified.style="FFC0CB"
 
 [git_status]
 style="FFC0CB"
-modified.style="FFC0CB"
+# modified.style="FFC0CB"
 
 [cmd_duration]
-prefix=""
+# prefix=""
 
 [character]
-style_success="purple"
+# style_success="purple"
 
