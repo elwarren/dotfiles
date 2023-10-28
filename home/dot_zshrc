@@ -7,30 +7,96 @@
 export XDG_CONFIG_HOME=$HOME/.config
 export WORK_HOME=$HOME/work
 export PROJECTS_HOME=$HOME/Projects
+
+########################################################################
+# Local
+export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export TZ="America/New_York"
-# sqlite3 from brew
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
+# export TZ="America/Los_Angeles"
+
+########################################################################
+# Paths
+# pathing getting complicated across OS and now arch
+if [[ $(uname -m) == "arm64" ]];then
+  export PATH="/opt/homebrew/opt:$PATH:/usr/local/opt"
+fi
+
 # my bin and local bin
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 # brew doctor recommends
 export PATH="$PATH:/usr/local/sbin"
 
 ########################################################################
-# editing and paging
-export PAGER="less -g -R -J -r"
-# never want these tools to use pager
-export AWS_PAGER=""
-export GIT_PAGER=""
-# use vi style when we have a choice
-export VISUAL=vi
-export EDITOR=vi
-# use nvim when we can
-if [[ -e /usr/local/bin/nvim ]];then
-  export EDITOR=/usr/local/bin/nvim
-  alias vi=/usr/local/bin/nvim
-  alias vim=/usr/local/bin/nvim
+# setup gcc llvm
+if [[ $(uname -s) == "Darwin" ]];then
+  if [[ "$(uname -m)" == "arm64" ]];then
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+    # To use the bundled libc++ please add the following LDFLAGS:
+    # LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++"
+  fi
+fi
+
+########################################################################
+# setup golang
+if [[ -d "$HOME/.local/go" ]];then
+  # export GOROOT=unused
+  export GOPATH=$HOME/.local/go
+  export PATH=${PATH}:${GOPATH}/bin
+fi
+
+########################################################################
+# setup java
+SKIP_JAVA=Y
+if [[ "N" == ${SKIP_JAVA} ]];then
+  # TODO support macos m2
+  # /opt/homebrew/opt/openjdk/bin/java
+  [[ -d "/usr/local/opt/openjdk/bin" ]] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
+  # Set java 8 as default
+  if [ -e /usr/libexec/java_home ];then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
+    alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
+    alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
+    alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
+  fi
+fi
+
+########################################################################
+# setup ruby environment with rbenv
+# test -e rbenv && eval "$(rbenv init -)"
+
+########################################################################
+# setup python environment with pyenv and virtualenv
+export PYENV_ROOT="$HOME/.pyenv"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+########################################################################
+# setup sqlite3
+if [[ $(uname -s) == "Darwin" ]];then
+  if [[ $(uname -m) == "arm64" ]];then
+    # macos apple silicon
+    export PATH="/opt/homebrew/opt/sqlite3/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/sqlite3/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/sqlite3/include"
+    export PKG_CONFIG_PATH="/opt/homebrew/opt/sqlite3/lib/pkgconfig"
+  else
+    export PATH="/usr/local/opt/sqlite/bin:$PATH"
+  fi
+fi
+
+########################################################################
+# setup postgres
+if [[ -d "/opt/homebrew/opt/postgresql@15/bin" ]];then
+  export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+  export LDFLAGS="-L/opt/homebrew/opt/postgresql@15/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/postgresql@15/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 fi
 
 ########################################################################
@@ -55,30 +121,19 @@ if [[ -d "$HOME/bin/sqlcl" ]];then
 fi
 
 ########################################################################
-# setup golang
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-export GOPATH=$HOME/work/gocode
-
-########################################################################
-# setup java
-[[ -d "/usr/local/opt/openjdk/bin" ]] && export PATH="/usr/local/opt/openjdk/bin:$PATH"
-# Set java 8 as default
-if [ -e /usr/libexec/java_home ];then
-  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-  alias j8="export JAVA_HOME=\$(/usr/libexec/java_home -v 1.8); java -version"
-  alias j10="export JAVA_HOME=\$(/usr/libexec/java_home -v 10); java -version"
-  alias j11="export JAVA_HOME=\$(/usr/libexec/java_home -v 11); java -version"
-  alias j12="export JAVA_HOME=\$(/usr/libexec/java_home -v 12); java -version"
-fi
-
-########################################################################
-# setup ruby environment with rbenv
-# test -e rbenv && eval "$(rbenv init -)"
-
-########################################################################
-# setup python environment with pyenv and virtualenv
-if command -v pyenv 1>/dev/null 2>&1; then
-      eval "$(pyenv init -)"
+# editing and paging
+export PAGER="less -g -R -J -r"
+# never want these tools to use pager
+export AWS_PAGER=""
+export GIT_PAGER=""
+# use vi style when we have a choice
+export VISUAL=vi
+export EDITOR=vi
+# use nvim when we can
+if [[ -e /usr/local/bin/nvim ]];then
+  export EDITOR=/usr/local/bin/nvim
+  alias vi=/usr/local/bin/nvim
+  alias vim=/usr/local/bin/nvim
 fi
 
 ########################################################################
@@ -118,17 +173,29 @@ fi
 ########################################################################
 # setup zsh
 HISTFILE=$HOME/.zhistory
-HISTSIZE=SAVEHIST=5000
+HISTSIZE=5000
+SAVEHIST=5000
 # don't save passwords in history
 HISTORY_IGNORE=td:todo:today:next:today:tomorrow:week:wl:work:worklog:jrnl:zk
 setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 setopt HASH_LIST_ALL
 
+# disable % when no newline
+PROMPT_EOL_MARK=''
+
 # Disable autocorrect guesses. Happens when typing a wrong
 unsetopt CORRECT
 # Disable autocorrection
 DISABLE_CORRECTION="true"
+
+# Enable shell completions, this used to be provided by ohmyzsh
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
 
 ########################################################################
 # setup iterm on macos
@@ -142,7 +209,7 @@ DISABLE_CORRECTION="true"
 # private environment stuff that should not be synced to github
 test -e $HOME/.bash_private && source $HOME/.bash_private
 
-test -e $HOME/bin/finto-helpers.sh && source $HOME/bin/finto-helpers.sh
+# test -e $HOME/bin/finto-helpers.sh && source $HOME/bin/finto-helpers.sh
 
 ########################################################################
 # setup op
@@ -170,9 +237,10 @@ export JIRA_CONFIG="$HOME/.jira/config.json"
 
 ########################################################################
 # setup calendar syncing
+CALDIR="$HOME/.local/share/calendars"
 alias sync-cal='vdirsyncer sync outlook'
 alias sync-cals='vdirsyncer sync'
-alias sync-cals-git='pushd;cd $HOME/.local/share/calendars;git add *;git commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a;popd'
+alias sync-cals-git='git -C "$CALDIR" add *;git -C "$CALDIR" commit -m $(date "+%Y-%m-%d-%H-%M-%S") -a'
 
 ########################################################################
 # setup perl
@@ -197,11 +265,15 @@ fi
 
 ########################################################################
 # disable global apple zsh function defaults
-[[ "$(uname -s)" == "Darwin" ]] && unfunction update_terminal_cwd
+[[ "$(uname -s)" == "Darwin" ]] && unfunction update_terminal_cwd > /dev/null 2>&1 
 
 ########################################################################
 # misc
-alias highlight='highlight -S markdown -O xterm256'
+alias highlight='highlight -O xterm256'
+alias highmd='highlight -S markdown -O xterm256'
+alias highxml='highlight -S xml -O xterm256'
+alias highhtml='highlight -S html -O xterm256'
+alias highjson='highlight -S json -O xterm256'
 
 ########################################################################
 # setup gpg github
