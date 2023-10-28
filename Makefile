@@ -198,3 +198,6 @@ configscreenshots:
 
 fixm2wifi:
 	sudo ifconfig awdl0 down
+
+monitor:
+	open https://github.com/avibrazil/RDM
