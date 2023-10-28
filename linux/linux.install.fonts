@@ -1,0 +1,17 @@
+#!/bin/bash
+# https://www.nerdfonts.com/
+
+LIST="Monoid Terminus ShareTechMono HeavyData FiraCode"
+
+# user font location
+F=${HOME}/.local/share/fonts
+
+for N in ${LIST};do
+  curl -L -o ${F}/${N}.zip "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/${N}.zip"
+  mkdir ${F}/$N
+  unzip ${F}/${N}.zip -d ${F}/${N}
+done
+
+# load all fonts
+fc-cache -v
+
